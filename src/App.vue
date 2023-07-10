@@ -13,6 +13,7 @@ import { useAuthStore } from '@/store/auth.js'
 import { storeToRefs} from  'pinia'
 const authStore = useAuthStore()
 const { count } = storeToRefs(authStore)
+// попробовал вывести новые данные из стора
 const { name } = storeToRefs(authStore)
 
 </script>
