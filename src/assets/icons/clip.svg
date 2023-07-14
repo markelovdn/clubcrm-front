@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="400" height="400" viewBox="0 0 400 400" xml:space="preserve">
+<desc>Created with Fabric.js 3.6.2</desc>
+<defs>
+</defs>
+<g transform="matrix(25 0 0 25 200 200)" id="Shape copy"  >
+<path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: evenodd; opacity: 1;"  transform=" translate(-824, -488)" d="M 821 484 L 821 492 C 821 493.5 822.5 495 824 495 C 825.5 495 827 493.5 827 492 L 827 484 L 828.000018 484 L 828 492 C 828 494 826 496 824 496 C 822 496 820 494 820 492 L 820 484 L 820 483 C 820 481.5 821.5 480 823 480 C 824.5 480 826 481.5 826 483 L 826 490 L 826 491 C 826 492 825 493 824 493 C 823 493 822 492 822 491 L 822 484 L 823 484 L 823 491 C 823 491.5 823.5 492 824 492 C 824.5 492 825 491.5 825 491 L 825 490 L 825 484 L 825 483 C 825 482 824 481 823 481 C 822 481 821 482 821 483 Z M 821 484" stroke-linecap="round" />
+</g>
+</svg>
