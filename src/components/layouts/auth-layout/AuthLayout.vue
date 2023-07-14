@@ -1,8 +1,6 @@
 <template>
   <main class="auth__main">
-    <section class="auth__header">
-
-    </section>
+    <section class="auth__header"></section>
     <section class="auth__content">
       <div class="form-registration">
         <span class="form-registration__title">Welcome back</span>
@@ -15,10 +13,6 @@
           <span class="block__title">Password</span>
           <input type="password" class="block_input">
         </div>
-        <div class="form-registration__remember-toggle">
-          <span>Remember me</span>
-          <input type="radio">
-        </div>
       </div>
     </section>
   </main>
@@ -29,12 +23,14 @@
 </script>
 
 <style scoped lang="scss">
-//@import './src/assets/style/main.scss';
+
+
+
 .auth__main {
   position: relative;
   width: 1920px;
   height: 1080px;
-  background: #F5F7F8;
+  background: $gradient_black;
     .auth__header {
       position: absolute;
       width: 1888px;
@@ -43,7 +39,7 @@
       top: 16px;
       background: #D9D9D9;
       border-radius: 15px;
-      background: linear-gradient(124deg, rgba(33, 34, 41, 0.6) -1.8%, rgba(33, 37, 41, 0.6) 105.23%);
+      background: $gradient_black
     }
     .auth__content {
       display: flex;
@@ -69,12 +65,7 @@
             &__title {
               width: 350px;
               height: 25px;
-              font-family: 'Open Sans';
-              font-style: normal;
-              font-weight: 700;
-              font-size: 30px;
-              line-height: 137%;
-              letter-spacing: -0.8px;
+              @include heading1;
               color: #172B4D;
               flex: none;
               order: 0;
@@ -97,7 +88,7 @@
               align-self: stretch;
               flex-grow: 0;
             }
-          &__block {
+            &__block {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -141,13 +132,8 @@
                 display: block;
               }
               }
-          &__remember-toggle {
-
-          }
           }
         }
-
-
     }
 
 
