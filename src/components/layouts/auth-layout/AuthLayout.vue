@@ -12,6 +12,7 @@
         <div class="form-registration__block">
           <span class="block__title">Password</span>
           <input type="password" class="block_input">
+           <InputComponent type="text" placeholder="Имя" />
         </div>
       </div>
     </section>
@@ -19,6 +20,7 @@
 </template>
 
 <script setup>
+import InputComponent from "@/components/ui/InputComponent.vue";
 
 </script>
 
