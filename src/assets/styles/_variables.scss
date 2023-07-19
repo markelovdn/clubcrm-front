@@ -4,17 +4,11 @@ $color_primary: #5E72E4;
 $color_secondary: #8392AB;
 $color_info: #11CDEF;
 $color_success: #2dce89;
-$color_danger: #F5365C;
+$color_danger: #b91c1c;
 $color_warning: #FB6340;
-$color_gray1: #F6F9FC;
-$color_gray2: #E9ECEF;
-$color_gray3: #DEE2E6;
-$color_gray4: #CED4DA;
-$color_gray5: #ADB5BD;
-$color_gray6: #8898AA;
-$color_gray7: #525F7F;
-$color_gray8: #32325D;
-$color_gray9: #212529;
+$color_white: #ffffff;
+$color_gray: #ac9999;
+
 
 //gradients
 $gradient_default: linear-gradient(81.62deg, #313860 2.25%, #151928 79.87%);
@@ -27,4 +21,4 @@ $gradient_gray: linear-gradient(263.35deg, #CED4DA 24.73%, #EBEFF4 86.57%);
 $gradient_black: linear-gradient(124deg, rgba(33, 34, 41, 0.6) -1.8%, rgba(33, 37, 41, 0.6) 105.23%);
 
 //fonts
-$default_font: 'Open Sans';
+$default_font: 'Open Sans', sans-serif;

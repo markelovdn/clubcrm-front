@@ -3,9 +3,7 @@
 </template>
 
 <script>
-export default {
-  name: "auth-layout"
-}
+
 </script>
 
 <style scoped>

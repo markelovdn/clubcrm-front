@@ -1,19 +1,21 @@
 <template>
-<AuthLayout>
-  <!--      <router-view></router-view>-->
-</AuthLayout>
-
+<InputComponent type="text" placeholder="Name"/>
+<ButtonComponent class="primary">Кнопка</ButtonComponent>
 </template>
 
 <script setup>
-import AuthLayout from "@/components/layouts/auth-layout/AuthLayout.vue";
+import InputComponent from "@/components/ui/InputComponent.vue";
+import ButtonComponent from "@/components/ui/ButtonComponent.vue";
+import TogleComponent from "@/components/ui/TogleComponent.vue";
+
+import { reactive } from "vue";
+import { storeToRefs } from  'pinia'
+
 import { useAuthStore } from '@/store/auth.js'
-import { storeToRefs} from  'pinia'
-import {reactive} from "vue";
 
-const authStore = reactive(useAuthStore())
+const authStore = useAuthStore()
 const { count } = storeToRefs(authStore)
-
+const { name } = storeToRefs(authStore)
 </script>
 
 <style scoped lang="scss">
