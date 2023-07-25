@@ -1,12 +1,10 @@
 <template>
-<InputComponent type="text" placeholder="Name"/>
-<ButtonComponent class="primary">Кнопка</ButtonComponent>
+  <PrimaryButton class="primary" theme="blue">Кнопка</PrimaryButton>
+  <p>Просто текст</p>
 </template>
 
 <script setup>
-import InputComponent from "@/components/ui/InputComponent.vue";
-import ButtonComponent from "@/components/ui/ButtonComponent.vue";
-import TogleComponent from "@/components/ui/TogleComponent.vue";
+import PrimaryButton from "@/components/ui/PrimaryButton.vue";
 
 import { reactive } from "vue";
 import { storeToRefs } from  'pinia'
@@ -18,6 +16,8 @@ const { count } = storeToRefs(authStore)
 const { name } = storeToRefs(authStore)
 </script>
 
-<style scoped lang="scss">
-
+<style>
+body {
+  background-color: red;
+}
 </style>
