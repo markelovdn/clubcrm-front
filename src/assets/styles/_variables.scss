@@ -1,24 +1,36 @@
 //colors
-$color_default: #172b4d;
-$color_primary: #5e72e4;
-$color_secondary: #8392AB;
-$color_info: #11CDEF;
-$color_success: #2dce89;
-$color_danger: #f5365c;
-$color_warning: #FB6340;
+$color_default: #172B4D;
+$color-primary: #5E72E4;
+$color-primary_hover: #939de0;
+$color_secondary_300: #DEE2E6;
+$color_secondary_400: #CED4DA;
+$color_secondary_600: #8898AA;
+$color_info_400: #11CDEF;
+$color_info_600: #1148ef;
+$color_info_900: #000080;
+$color_success_400: #2DCE89;
+$color_success_600: #00b100;
+$color_success_900: #006400;
+$color_danger_400: #F5365C;
+$color_danger_600: #d00000;
+$color_danger_900: #8B0000;
+$color_warning_400: #FB6340;
+$color_warning_600: #ffb700;
+$color_warning_900: #FF4500;
 $color_white: #ffffff;
-$color_gray: #f4f5f7;
+$color_black: #000000;
 
-
-//gradients
+//gradients добавить начертание 400 для базовых цветов $gradient_orange-red
 $gradient_default: linear-gradient(81.62deg, #313860 2.25%, #151928 79.87%);
 $gradient_primary: linear-gradient(124deg, #5E72E4 -1.8%, #825EE4 105.23%);
-$gradient_danger: linear-gradient(338.54deg, #F55C3A 31.89%, #F53B58 61.42%);
-$gradient_warning: linear-gradient(91.81deg, #FBB140 1.1%, #FB6340 99.77%);
+$gradient_orange-red: linear-gradient(338.54deg, #F55C3A 31.89%, #F53B58 61.42%);
+$gradient_yellow_orange: linear-gradient(91.81deg, #FBB140 1.1%, #FB6340 99.77%);
 $gradient_blue: linear-gradient(121.78deg, #11CDEF 9.06%, #1171EF 88.15%);
 $gradient_green: linear-gradient(338.08deg, #2DCEC6 27.53%, #2DCE94 61.45%);
 $gradient_gray: linear-gradient(263.35deg, #CED4DA 24.73%, #EBEFF4 86.57%);
 $gradient_black: linear-gradient(124deg, rgba(33, 34, 41, 0.6) -1.8%, rgba(33, 37, 41, 0.6) 105.23%);
 
-//fonts
-$default_font: 'OpenSans', sans-serif;
+//fonts $font_open-sans
+$font_open-sans: 'OpenSans', sans-serif;
+
+

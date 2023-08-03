@@ -1,23 +1,62 @@
 <template>
-  <PrimaryButton class="primary" theme="blue">Кнопка</PrimaryButton>
-  <p>Просто текст</p>
+  <div class="container">
+    <div class="sidebar-toggle" @click="toggleMenu">&#5125;</div>
+    <layout-header />
+    <layout-sidebar :openSidebar="isOpenMenu" />
+    <div :class="['content', { content_full: !isOpenMenu }]">
+      <router-view />
+    </div>
+  </div>
 </template>
 
 <script setup>
-import PrimaryButton from "@/components/ui/PrimaryButton.vue";
+  import LayoutHeader from "@/components/layouts/Header.vue"
+  import LayoutSidebar from "@/components/layouts/Sidebar.vue"
+  import { ref } from "vue";
 
-import { reactive } from "vue";
-import { storeToRefs } from  'pinia'
+  const isOpenMenu = ref(false);
 
-import { useAuthStore } from '@/store/auth.js'
-
-const authStore = useAuthStore()
-const { count } = storeToRefs(authStore)
-const { name } = storeToRefs(authStore)
+  const toggleMenu = () => {
+    isOpenMenu.value = !isOpenMenu.value;
+  };
 </script>
 
-<style>
-body {
-  background-color: red;
+<style lang="scss">
+//.app {
+//  height: 100vh;
+//  display: flex;
+//  justify-content: center;
+//  align-items: center;
+//}
+
+.content {
+  max-width: 100%;
+  margin-left: 250px;
+  padding: 30px;
+  transition: 0.2s;
+  &_full {
+    margin-left: 0;
+  }
+}
+
+.sidebar-toggle {
+  position: fixed;
+  left: 0;
+  width: 15px;
+  background: $color_primary;
+  height: 100%;
+  top: 62px;
+  z-index: 1;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 100%) {
+  .content {
+    margin-left: 0;
+  }
 }
 </style>

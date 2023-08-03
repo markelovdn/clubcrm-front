@@ -6,7 +6,13 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => ['md-linedivider'].includes(tag),
+        }
+      }
+    }),
   ],
   resolve: {
     alias: {
@@ -16,9 +22,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `
-              @import "./src/assets/styles/index.scss";
-            `
+        additionalData: `@import "./src/assets/styles/index.scss";`
       }
     }
   },

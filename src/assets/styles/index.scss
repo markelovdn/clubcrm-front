@@ -1,11 +1,3 @@
-//@import "variables";
-//@import "./main.scss";
-//@import "mixins";
-//@import "reset";
-//@import "src/assets/fonts/OpenSans/stylsheet.css";
-//@import "src/assets/fonts/GaneshaType/stylsheet.css";
-//@import "./src/assets/styles/_main.scss";
-
-body {
-  background-color: red;
-}
+@import "variables";
+@import "mixins";
+@import "main";
