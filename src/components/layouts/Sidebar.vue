@@ -23,11 +23,15 @@ const links = ref ([
   {name: "Typography", href: "/typography"},
   {name: "Button", href: "/button"},
   {name: "Checkbox", href: "/checkbox"},
-  // {name: "Radiobutton", href: "/radiobutton"},
-  // {name: "Progress", href: "/progress"},
-  // {name: "Input", href: "/input"},
-  // {name: "Tabs", href: "/tabs"},
-  // {name: "Table", href: "/table"}
+  {name: "Radiobutton", href: "/radiobutton"},
+  {name: "Progress", href: "/progress"},
+  {name: "Input", href: "/input"},
+  {name: "Select", href: "/select"},
+  {name: "Tabs", href: "/tabs"},
+  {name: "Table", href: "/table"},
+  {name: "Upload", href: "/upload"},
+  {name: "Modal", href: "/modal"},
+  {name: "Label", href: "/label"}
 ])
 </script>
 

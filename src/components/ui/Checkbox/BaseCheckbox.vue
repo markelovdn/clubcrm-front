@@ -1,127 +1,162 @@
 <template>
-  <label :class="['base-checkbox', classes]">
+  <div :class="[{'switch-container': type === 'switch'}]">
     <input
+        :class="[{'checkbox': type === 'checkbox'}, {'switch': type === 'switch'}]"
         type="checkbox"
-        :checked="modelValue"
-        v-model="modelValue"
-        @change="emit('update:modelValue', $event.target.checked)"
-        :disabled="props.disabled"
-        :class="['base-checkbox__input', classes]">
-      <span :class="['base-checkbox__figure', classes]"></span>
-      <span class="base-checkbox__label">
-        <slot></slot>
-      </span>
-  </label>
+        :name="name"
+        :id="id"
+        :value="value"
+        :checked="checked"
+        :disabled="disabled"
+        @input="handleClick($event)">
+    <label :for="id">{{ label }}</label>
+    <label :for="id" class="switch__label" v-if="type === 'switch'">{{ label }}</label>
+  </div>
 </template>
 
 <script setup>
-import {computed} from "vue";
-import { ref } from 'vue'
-
+const emits = defineEmits(['update:checked', 'updateCheckboxGroup'])
 const props = defineProps({
-  modelValue: {
+  name: {
+    type: String,
+    default: ''
+  },
+  id: {
+    type: String,
+    default: ''
+  },
+  value: {
+    type: String,
+    default: ''
+  },
+  label: {
+    type: String,
+    default: ''
+  },
+  checked: {
     type: Boolean,
-    required: true
+    default: false
   },
   disabled: {
+    type: Boolean,
+    default: false
+  },
+  group: {
+    type: Boolean,
+    default: false
+  },
+  type: {
     type: String,
-    default: null
-  },
-  theme: {
-    type: String,
-    default: 'default',
-    // validate: () => ['blue'].includes(this.theme)
-  },
+    default: 'checkbox'
+  }
 })
-const emit = defineEmits(['update:modelValue'])
 
-const classes = computed(() => [
-  `theme-${props.theme}`
-])
-
-const modelValue = computed({
-  get() {
-    return props.modelValue
-  },
-  set(newValue) {
-    emit('update:modelValue', newValue)
-  },
-})
+const handleClick = (event) => {
+  if (props.group) {
+    emits('updateCheckboxGroup', {optionId: props.id, checked: event.target.checked})
+  } else {
+    emits('update:checked', event.target.checked)
+  }
+}
 </script>
 
 <style scoped lang="scss">
-.base-checkbox {
-  position: relative;
-  display: inline-block;
-  padding-left: 18px;
-  padding-bottom: 15px;
-
-  &__figure {
-    position: absolute;
-    margin-left: -16px;
-    margin-top: 2px;
+.checkbox {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  & + label {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+  }
+  & + label::before {
+    content: '';
+    display: inline-block;
     width: 24px;
     height: 24px;
-    border-radius: 4px;
-    background-color: $color_white;
-    box-shadow: 0 0 0 2px $color_primary;
-
-    &.theme-default {
-      background-color: red;
-    }
+    flex-shrink: 0;
+    flex-grow: 0;
+    border: 1px solid $color_secondary_300;
+    border-radius: 6px;
+    margin-right: 10px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50% 50%;
   }
-
-  &__label {
-    position: relative;
-    padding-left: 15px;
-    padding-right: 5px;
-    top: 5px;
+  &:checked + label::before {
+    border-color: $color-primary;
+    background-color: $color-primary;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
   }
-
-  &__input {
-    content: '';
-    position: absolute;
-    appearance: none;
-    &.theme-default {
-      background-color: red;
-    }
+  &:not(:disabled):not(:checked) + label:hover::before {
+    border-color: $color-primary_hover;
   }
-
-  &__input:checked + &__figure:after {
-    content: '\f00c';
-    font-family: FontAwesome;
-    font-weight: lighter;
-    font-size: 24px;
-    color: white;
-    background-color: $color_primary;
-    border-radius: 1px;
-    transition: .2s;
-    display: table-cell;
-    &.theme-default {
-      background-color: red;
-    }
+  &:not(:disabled):active + label::before {
+    background-color: var(--primary);
+    border: 1px solid $color_secondary_300;
   }
-
-  &__input:focus + &__figure {
-    box-shadow:
-        0 0 0 2px $color_primary,
-        0 0 4px 2px $color_primary;
-    &.theme-default {
-      background-color: red;
-    }
+  &:focus + label::before {
+    box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.07);
   }
-
-  &__input:disabled + &__figure {
-    box-shadow: 0 0 0 2px $color_secondary_400;
-    &.theme-default {
-      background-color: red;
-    }
+  &:focus:not(:checked) + label::before {
+    border-color: var(--primary);
   }
-
-  &__input:checked:disabled + &__figure:after {
+  &:disabled + label::before {
     background-color: $color_secondary_400;
-    &.theme-default {
-      background-color: red;
+    border: 1px solid $color_secondary_300;
+  }
+}
+
+.switch {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  &-container {
+    display: flex;
+    align-items: center;
+  }
+  &__label {
+    margin-left: 10px;
+  }
+  & + label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 50px;
+    height: 35px;
+    background: white;
+    border: 1px solid $color_secondary_400;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+    &:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 5px;
+      width: 26px;
+      height: 26px;
+      background: #fff;
+      background: $color-primary;
+      border-radius: 90px;
+      transition: 0.3s;
+      transform: translateY(-50%);
+    }
+  }
+  &:checked {
+    & + label {
+      background: $color-primary;
+      &:after {
+        background: white;
+        left: calc(100% - 5px);
+        transform: translateX(-100%) translateY(-50%);
+      }
+      &:active:after {
+        width: 33px;
+      }
     }
   }
 }

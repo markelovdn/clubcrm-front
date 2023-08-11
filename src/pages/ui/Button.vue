@@ -25,7 +25,7 @@
   </div>
   <h2 class="heading-2">Outlined</h2>
   <div class="line">
-    <BaseButton label="Primary" color="primary" outlined/>
+    <BaseButton label="Primary" icon="award" color="primary" outlined/>
     <BaseButton label="Secondary" color="secondary" outlined/>
     <BaseButton label="Success" color="success" outlined/>
     <BaseButton label="Info" color="info" outlined/>
@@ -34,12 +34,18 @@
   </div>
   <h2 class="heading-2">Icon</h2>
   <div class="line">
-    <BaseButton color="primary" icon="heart" outlined/>
-    <BaseButton color="secondary" icon="hand"/>
-    <BaseButton color="success" icon="address-book" outlined/>
-    <BaseButton color="info" icon="credit-card"/>
-    <BaseButton color="warning" icon="lemon" outlined/>
-    <BaseButton color="danger" icon="hourglass"/>
+    <BaseButton color="primary" icon="award" outlined rounded label="Загрузить фото"/>
+    <BaseButton color="secondary" icon="calendar"/>
+    <BaseButton color="success" icon="paperclip" outlined/>
+    <BaseButton color="info" icon="clock"/>
+    <BaseButton color="warning" icon="dumbbell" outlined/>
+    <BaseButton color="danger" icon="pen-to-square"/>
+    <BaseButton color="primary" icon="medal" />
+    <BaseButton color="primary" icon="yin-yang" />
+    <BaseButton color="primary" icon="users" label=""/>
+    <BaseButton color="primary" icon="user" />
+    <BaseButton color="primary" icon="file-pdf" />
+    <BaseButton color="primary" icon="trophy" />
   </div>
   <h2 class="heading-2">Size</h2>
   <div class="line">

@@ -8,10 +8,10 @@
        {'base-button__large': size === 'large'}]"
       :disabled="disabled"
       @click="clickOnButton">
-    <span v-if="icon">
-      Иконка
+    <span>
+      <font-awesome-icon :icon="`fa-${icon_option} fa-${icon}`" />
     </span>
-    <span v-else>{{ label }}</span>
+    <span>{{ label }}</span>
   </button>
 </template>
 
@@ -41,7 +41,12 @@ const props = defineProps({
   },
   icon: {
     type: String,
-    required: false
+    required: false,
+  },
+  icon_option: {
+    type: String,
+    required: false,
+    default: 'solid'
   },
   size: {
     type: String,
@@ -127,10 +132,9 @@ const clickOnButton = () => {
     }
   }
   &__icon {
-    padding: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    & span {
+      padding: 2px;
+    }
   }
   &__large {
     height: 48px;
