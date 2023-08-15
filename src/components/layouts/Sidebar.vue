@@ -31,7 +31,12 @@ const links = ref ([
   {name: "Table", href: "/table"},
   {name: "Upload", href: "/upload"},
   {name: "Modal", href: "/modal"},
-  {name: "Label", href: "/label"}
+  {name: "Label", href: "/label"},
+  {name: "Accordion", href: "/accordion"},
+  {name: "Card", href: "/card"},
+  {name: "Lightbox", href: "/lightbox"},
+  {name: "Notification", href: "/notification"},
+  {name: "Spinner", href: "/spinner"},
 ])
 </script>
 

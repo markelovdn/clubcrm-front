@@ -1,7 +1,7 @@
 <template>
 <div class="line" :style="{ width: width }">
   <div class='base-select'>
-    
+  <!-- TODO: Косяк с diabled с переводом мыши с активного на disabled   -->
     <div :class="[`base-select__header`, {disabled: disabled}]"
     @click="optionsBox.visible = !optionsBox.visible"
     @mouseleave="optionsBox.visible = false">
@@ -21,7 +21,7 @@
     @mouseenter="optionsBox.visible = true"
     @mouseleave="optionsBox.visible = false">
       <div class="base-select__item" v-if="emptyItem"
-      @click="selectOption('')">{{ emptyItemLabel }}
+        @click="selectOption('')">{{ emptyItemLabel }}
       </div>
 
       <div class="base-select__item" v-for="option in options"

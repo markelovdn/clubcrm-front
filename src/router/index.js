@@ -12,6 +12,7 @@ import Table from '@/pages/ui/Table.vue'
 import Upload from '@/pages/ui/Upload.vue'
 import Modal from '@/pages/ui/Modal.vue'
 import Label from '@/pages/ui/Label.vue'
+import Accordion from '@/pages/ui/Accordion.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -80,6 +81,11 @@ const router = createRouter({
         path: "/label",
         name: "Label",
         component: Label
+    },
+    {
+        path: "/accordion",
+        name: "Accordion",
+        component: Accordion
     },
   ]
 })
