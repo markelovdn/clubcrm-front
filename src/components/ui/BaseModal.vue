@@ -4,10 +4,12 @@
       <div class="base-modal__wrapper">
         <div class="base-modal__container">
 
-          <div class="base-modal__container-header">
+          <div
+          v-if="header"
+          class="base-modal__container-header">
             <slot name="header">
             </slot>
-            <span>
+            <span @click="emit('close')">
               <font-awesome-icon icon="xmark" />
             </span>
           </div>
@@ -28,6 +30,16 @@
     </div>
   </div>
 </template>
+
+<script setup>
+const emit = defineEmits(['close'])
+const props = defineProps({
+  header: {
+    type: Boolean,
+    default: false
+  }
+})
+</script>
 
 <style scoped lang="scss">
 .base-modal {
@@ -62,27 +74,24 @@
   }
 
   &__container-header {
-    flex-grow: 1;
+    width: 98%;
     display: flex;
     flex-direction: row;
-    margin-bottom: 10px;
+    padding: 10px 0 10px 0;
     justify-content: space-between;
     border-bottom: 1px solid $color_secondary_300;
 
     & span {
       cursor: pointer;
-      padding: 5px;
     }
   }
 
   &__container-body {
-    margin-bottom: 10px;
-    flex-grow: 3;
+    padding: 10px 0 10px 0;
   }
   
   &__container-footer {
     align-self: flex-end;
-    flex-grow: 1;
   }
 }
 </style>
