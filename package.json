@@ -22,7 +22,8 @@
     "sass": "^1.63.6",
     "vue": "^3.3.4",
     "vue-mask": "^1.0.0",
-    "vue-router": "^4.2.2"
+    "vue-router": "^4.2.2",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
