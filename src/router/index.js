@@ -14,6 +14,8 @@ import Modal from '@/pages/ui/Modal.vue'
 import Label from '@/pages/ui/Label.vue'
 import Accordion from '@/pages/ui/Accordion.vue'
 import Card from '@/pages/ui/Card.vue'
+import Lightbox from '@/pages/ui/Lightbox.vue'
+import Images from '@/pages/ui/Images.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -92,6 +94,16 @@ const router = createRouter({
         path: "/card",
         name: "Card",
         component: Card
+    },
+    {
+        path: "/lightbox",
+        name: "Lightbox",
+        component: Lightbox
+    },
+    {
+        path: "/images",
+        name: "Images",
+        component: Images
     },
   ]
 })

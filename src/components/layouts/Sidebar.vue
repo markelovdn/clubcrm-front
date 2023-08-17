@@ -37,6 +37,7 @@ const links = ref ([
   {name: "Lightbox", href: "/lightbox"},
   {name: "Notification", href: "/notification"},
   {name: "Spinner", href: "/spinner"},
+  {name: "Images", href: "/images"},
 ])
 </script>
 
