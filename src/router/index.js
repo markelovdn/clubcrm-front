@@ -16,6 +16,7 @@ import Accordion from '@/pages/ui/Accordion.vue'
 import Card from '@/pages/ui/Card.vue'
 import Lightbox from '@/pages/ui/Lightbox.vue'
 import Images from '@/pages/ui/Images.vue'
+import Notification from '@/pages/ui/Notification.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -104,6 +105,11 @@ const router = createRouter({
         path: "/images",
         name: "Images",
         component: Images
+    },
+    {
+        path: "/notification",
+        name: "Notification",
+        component: Notification
     },
   ]
 })

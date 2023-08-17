@@ -3,6 +3,7 @@
   <BaseImages 
   src="src/assets/img/demo/300X300.png"
   size="xs"
+  rounded
   @click="ShowImage('src/assets/img/demo/300X300.png')"/>
 
   <BaseImages

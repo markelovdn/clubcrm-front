@@ -1,6 +1,6 @@
 <template>
-  <div :class="['base-image', size]">
-    <img :src="src" alt="">
+  <div :class="['base-image', size, rounded]">
+    <img :class="{rounded: rounded}" :src="src" alt="">
   </div>
   
 </template>
@@ -15,6 +15,11 @@ const props = defineProps({
     type: String,
     required: false,
     default: 'full'
+  },
+  rounded: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 })
 </script>
@@ -28,7 +33,11 @@ const props = defineProps({
     border-radius: 8px;
     width: 100%;
     height: 100%;
-    object-fit: contain;    
+    object-fit: contain;
+    
+    &.rounded {
+      border-radius: 50%;
+    }
   }
 
   &.xs {
