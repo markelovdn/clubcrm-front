@@ -1,13 +1,16 @@
 <template>
-      <div class="base-notification" key="base">
-    <span :class="['base-notification__text', color]" key="text">
+  <div class="container">
+    <div :class="['base-notification', color]">
+    <span :class="['base-notification__text', color]">
         {{ text }}
   </span>
     <i class="base-notification__icon"
-    @click="emit('close')" key="icon">
-      <font-awesome-icon icon="xmark" key="icon2"/>
+    @click="emit('close')">
+      <font-awesome-icon icon="xmark"/>
     </i>
     </div>
+  </div>
+
     
 {{ delay(props.delay) }}
 </template>
@@ -28,7 +31,7 @@ const props = defineProps({
   delay: {
     type: String,
     required: false,
-    default: "5000"
+    default: "60000"
   }
 })
 
@@ -37,38 +40,44 @@ const delay = (delay) => {
 }
 </script>
 
-
-
 <style scoped lang="scss">
+.container {
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  position: relative;
+  flex-direction: row-reverse;
+  top: -210px;
+}
 .base-notification {
   display: flex;
   justify-content: space-around;
-  position: relative;
   width: 300px;
   padding: 10px 20px;
   border-radius: 6px;
   background-color: $color_secondary_300;
-  top: -210px;
+  
+
+  &.danger {
+      color: white;
+      background-color: $color_danger_600;
+    }
+
+  &.warning {
+    background-color: $color_warning_400;
+  }
+
+  &.success {
+    background-color: $color_success_400;
+  }
+
+  &.default {
+    color: black;
+  }  
 
   &__text {
     width: 100%;
     word-wrap: break-word;
-
-    &.danger {
-      color: $color_danger_600;
-    }
-
-    &.warning {
-      color: $color_warning_600;
-    }
-
-    &.success {
-      color: $color_success_600;
-    }
-
-    &.default {
-      color: black;
-    }
   }
 
   &__icon {

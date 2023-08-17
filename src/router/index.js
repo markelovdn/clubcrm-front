@@ -17,6 +17,7 @@ import Card from '@/pages/ui/Card.vue'
 import Lightbox from '@/pages/ui/Lightbox.vue'
 import Images from '@/pages/ui/Images.vue'
 import Notification from '@/pages/ui/Notification.vue'
+import Spinner from '@/pages/ui/Spinner.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -110,6 +111,11 @@ const router = createRouter({
         path: "/notification",
         name: "Notification",
         component: Notification
+    },
+    {
+        path: "/spinner",
+        name: "Spinner",
+        component: Spinner
     },
   ]
 })
