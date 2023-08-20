@@ -1,5 +1,5 @@
 <template>
-  <div :class="['base-image', size, rounded]">
+  <div :class="['base-image', props.size, rounded]">
     <img :class="{rounded: rounded}" :src="src" alt="">
   </div>
   

@@ -15,8 +15,6 @@
   <div class="label">
     <BaseLabel text="Success" color="success"/>
   </div>
-
-
 </template>
 
 <script setup>

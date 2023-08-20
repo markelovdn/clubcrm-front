@@ -1,3 +1,17 @@
+<template>
+  <h1 class="heading-1">Progress</h1>
+  <h2 class="heading-2">Progress Bar</h2>
+  <div class="line line_block">
+    <ProgressBar maxWidth="400px" :percent="percentBar" color="primary"/>
+    <BaseButton label="Add 10%" @click="addPercentBar"/>
+  </div>
+  <h2 class="heading-2">Progress Circle</h2>
+  <div class="line line_block">
+    <ProgressCircle :percent="percentCircle" color="primary"/>
+    <BaseButton label="Add 10%" @click="addPercentCircle"/>
+  </div>
+</template>
+
 <script setup>
 import {ref} from 'vue'
 import ProgressBar from '@/components/ui/Progress/ProgressBar.vue'
@@ -21,17 +35,3 @@ const addPercentCircle = () => {
   }
 }
 </script>
-
-<template>
-  <h1 class="heading-1">Progress</h1>
-  <h2 class="heading-2">Progress Bar</h2>
-  <div class="line line_block">
-    <ProgressBar maxWidth="400px" :percent="percentBar" color="primary"/>
-    <BaseButton label="Add 10%" @click="addPercentBar"/>
-  </div>
-  <h2 class="heading-2">Progress Circle</h2>
-  <div class="line line_block">
-    <ProgressCircle :percent="percentCircle" color="primary"/>
-    <BaseButton label="Add 10%" @click="addPercentCircle"/>
-  </div>
-</template>

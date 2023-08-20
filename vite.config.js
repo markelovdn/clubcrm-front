@@ -27,10 +27,10 @@ export default defineConfig({
     }
   },
   server: {
-    port: 5173,
+    port: 5473,
     hmr: {
       host: "localhost",
-      port: 5173,
+      port: 5473,
       protocol: "ws",
     },
   },

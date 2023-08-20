@@ -1,13 +1,13 @@
 <template>
   <article class="base-accordion">
     <header class="base-accordion__title" @click="isOpen = !isOpen">
-        <span>{{title}}</span>
+        <span>{{props.title}}</span>
         <i :class="{arrow_down: isOpen, disabled: disabled}"></i>
     </header>
     <div
       :class="['base-accordion__content', { hidden_content: !isOpen }]">
       <p :class="{ hidden_content: !isOpen }">
-        {{content}}
+        {{props.content}}
       </p>
       <slot></slot>
     </div>
@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 const props = defineProps({
     title: {
         type: String,
