@@ -35,6 +35,7 @@ const books = ref([
   }
 ])
 
+// TODO:sort изменяет оригинальный массив, а в computed нельзя изменять данные. Подумай, как исправить
 const booksSorting = computed(() => {
   return books.value.sort((a, b) => {
     let modifier = 1;

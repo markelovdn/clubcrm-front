@@ -12,11 +12,10 @@
   </div>
 
     
-{{ delay(props.delay) }}
+{{ showNotification(props.delay) }}
 </template>
 
 <script setup>
-import { ref } from 'vue';
 const emit = defineEmits(['close'])
 const props = defineProps({
   text: {
@@ -35,7 +34,7 @@ const props = defineProps({
   }
 })
 
-const delay = (delay) => {
+const showNotification = (delay) => {
   setTimeout(() => emit('close'), delay)
 }
 </script>

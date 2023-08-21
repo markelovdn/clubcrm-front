@@ -1,7 +1,8 @@
 <template>
 <div class="line" :style="{ width: width }">
   <div class='base-select'>
-  <!-- TODO: Косяк с diabled с переводом мыши с активного на disabled   -->
+  <!-- TODO: Косяк с diabled с переводом мыши с активного на disabled
+  Ну да, тут mouseleave поскольку на двух разных дивах висит, это не прокатит. -->
     <div :class="[`base-select__header`, {disabled: disabled}]"
     @click="optionsBox.visible = !optionsBox.visible"
     @mouseleave="optionsBox.visible = false">

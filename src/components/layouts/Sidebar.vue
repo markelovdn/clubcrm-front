@@ -1,5 +1,5 @@
 <template>
-  <div :class="['sidebar', { sidebar_isopen:  openSidebar }]">
+  <div :class="['sidebar', { sidebar_isopen:  props.openSidebar }]">
     <router-link
         class="sidebar__link"
         v-for="link in links"
@@ -10,8 +10,6 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-
 const props = defineProps({
   openSidebar: {
     type: Boolean,
@@ -19,7 +17,7 @@ const props = defineProps({
   },
 });
 
-const links = ref ([
+const links = [
   {name: "Typography", href: "/typography"},
   {name: "Button", href: "/button"},
   {name: "Checkbox", href: "/checkbox"},
@@ -38,7 +36,7 @@ const links = ref ([
   {name: "Notification", href: "/notification"},
   {name: "Spinner", href: "/spinner"},
   {name: "Images", href: "/images"},
-])
+]
 </script>
 
 <style lang="scss" scoped>
