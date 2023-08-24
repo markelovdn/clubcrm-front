@@ -1,6 +1,12 @@
 <template>  
   <div class="base-input" :style="{ width: width }">
-    <input class="input-text" :type="type" :name="name" :id="name" :placeholder="placeholder" :value="value"
+    <input class="input-text"
+     :type="type"
+     :name="name"
+     :id="name"
+     :placeholder="placeholder"
+     :value="value"
+     v-maska :data-maska = maska
       @input="updateValue">
     <label :for="name" class="input-label">{{ label }}</label>
     <TransitionGroup>
@@ -12,6 +18,8 @@
 </template>
 
 <script setup>
+import { ref } from "vue"
+import { vMaska } from "maska"
 const emit = defineEmits(['update:value'])
 const props = defineProps({
   error: {
@@ -40,8 +48,12 @@ const props = defineProps({
   },
   width: {
     type: String,
-    default: '300px'
-  }
+    default: '100%'
+  },
+  maska: {
+    type: String,
+    default: ''
+  },
 })
 
 const updateValue = (e) => {
@@ -52,7 +64,6 @@ const updateValue = (e) => {
 <style lang="scss">
 .base {
   &-input {
-    margin-bottom: 30px;
     position: relative;
   }
 
@@ -68,7 +79,7 @@ const updateValue = (e) => {
 
 .input {
   &-text {
-    border: 1px solid $color-primary;
+    border: 1px solid $color_secondary_400;
     padding: 0 10px;
     height: 40px;
     border-radius: 7px;
@@ -103,7 +114,7 @@ const updateValue = (e) => {
     z-index: -1;
     transition: .3s;
     font-size: 13px;
-    color: $color-primary;
+    color: $color-secondary_300;
   }
 }
 
