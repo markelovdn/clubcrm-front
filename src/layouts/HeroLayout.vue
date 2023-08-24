@@ -19,7 +19,7 @@ const show_form = ref(false);
 <div :class="['hero-overlay', {show_form: show_form}]"></div>
 <div :class="['hero-container', {show_form: show_form}]">
   <div :class="['hero-container__logo', {show_form: show_form}]">
-      <img :class="['img', {show_form: show_form}]" src="dist/assets/img/legion_1.png" >
+      <img :class="['img', {show_form: show_form}]" src="@/assets/img/legion_1.png" >
     </div>
 <div class="hero-container__text">
       <span :class="{hide: show_form}">
