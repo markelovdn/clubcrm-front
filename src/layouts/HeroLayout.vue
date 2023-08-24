@@ -71,7 +71,7 @@ const show_form = ref(false);
         rgba(0, 0, 0, 0.2) 19%,
         rgb(55, 42, 42) 96%
       ) center center / cover no-repeat,
-    url('dist/assets/img/taekwondo-bg.jpg') center center/cover no-repeat;
+    url('@/assets/img/taekwondo-bg.jpg') center center/cover no-repeat;
     opacity: 1;  
 
     &__logo {
