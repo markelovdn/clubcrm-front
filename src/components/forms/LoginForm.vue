@@ -5,6 +5,8 @@ import BaseInput from '@/components/ui/BaseInput.vue';
 import BaseButton from '@/components/ui/BaseButton.vue';
 
 const forgotPassword :boolean = ref(false);
+const showPassword: boolean = ref(false);
+const passwordField: string = ref('');
 </script>
 
 <template>
@@ -26,8 +28,33 @@ const forgotPassword :boolean = ref(false);
         placeholder="Пароль"
         label="Пароль"
         width="90%"
+        :hidden="showPassword"
+        v-model:value="passwordField"
+    />
+    <BaseInput 
+        type="text"
+        name="passwordShow"
+        placeholder="Пароль"
+        label=""
+        width="90%"
+        :hidden="!showPassword"
+        v-model:value="passwordField"
     />
     </div>
+
+    <div class="show-hide__password">
+      <span
+        v-if="!showPassword"
+        @click = "showPassword = !showPassword">
+        <font-awesome-icon icon="fa-solid fa-eye" />
+      </span>
+      <span
+        v-if="showPassword"
+        @click = "showPassword = !showPassword">
+        <font-awesome-icon icon="fa-solid fa-eye-slash" />
+      </span>
+    </div>
+    
     
     <BaseButton 
       label = "Войти" 
@@ -60,5 +87,14 @@ const forgotPassword :boolean = ref(false);
     & span {
       color: white;
     }
+  }
+
+  .show-hide__password {
+    display: flex;
+    position: relative;
+    z-index: 2;
+    top: -60px;
+    left: 190px;
+    color: $color_secondary_600;
   }
 </style>

@@ -7,7 +7,8 @@
      :placeholder="placeholder"
      :value="value"
      v-maska :data-maska = maska
-      @input="updateValue">
+      @input="updateValue"
+      :hidden="hidden">
     <label :for="name" class="input-label">{{ label }}</label>
     <TransitionGroup>
       <div class="base-error" v-for="element of error" :key="element.$uid">
@@ -54,6 +55,12 @@ const props = defineProps({
     type: String,
     default: ''
   },
+  hidden: {
+    type: Boolean,
+    default: false
+  },
+
+
 })
 
 const updateValue = (e) => {

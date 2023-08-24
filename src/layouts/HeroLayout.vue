@@ -17,7 +17,9 @@ const show_form = ref(false);
 
 <template>
 <div :class="['hero-overlay', {show_form: show_form}]"></div>
-<div :class="['hero-container', {show_form: show_form}]">
+<div 
+:class="['hero-container', {show_form: show_form}]" 
+style="background: url('src/assets/img/taekwondo-bg.jpg') center center/cover no-repeat">
   <div :class="['hero-container__logo', {show_form: show_form}]">
       <img :class="['img', {show_form: show_form}]" src="@/assets/img/legion_1.png" >
     </div>
@@ -66,13 +68,6 @@ const show_form = ref(false);
   justify-content: start;
   height: 100vh;
   width: 100vw;
-  background:
-    linear-gradient(
-        rgba(0, 0, 0, 0.2) 19%,
-        rgb(55, 42, 42) 96%
-      ) center center / cover no-repeat,
-    url('@/assets/img/taekwondo-bg.jpg') center center/cover no-repeat;
-    opacity: 1;  
 
     &__logo {
       z-index: 2;
@@ -92,13 +87,8 @@ const show_form = ref(false);
       height: 180px;
       padding-top: 5px;
       object-fit: contain;
-      animation: show 3s 1;
+      animation: show 2s 1;
       animation-fill-mode: forwards;
-
-      &.show_form {
-        animation: transform-logo__img 2s 1;
-        animation-fill-mode: forwards;
-      }
     }
   }
 
@@ -110,13 +100,13 @@ const show_form = ref(false);
   color: white;
   font-size: 150%;
   font-weight: bolder;
-  animation: show 3s 1;
+  animation: show 2s 1;
   animation-fill-mode: forwards;
 
     & span {
       opacity: .8;
         &.hide {
-        transition: 2s;
+        transition: 1s;
         opacity: 0;
       }
     }
@@ -126,25 +116,25 @@ const show_form = ref(false);
     z-index: 2;
     align-self: center;
     padding-top: 15px;
-    animation: show 3s 1;
+    animation: show 2s 1;
     animation-fill-mode: forwards;
     opacity: 1;
 
     & span.hide {
-        transition: 2s;
+        transition: 1s;
         opacity: 0;
       }
   }
 }
 
 .login-form {
-  display: flex;
+  display: none;
   position: absolute;
   align-items: center;
   justify-content: center;
   width: 100vw;
   height: 90vh;
-  top: 0;
+  top: 50px;
   opacity: 0;
   z-index: -1;
 
@@ -153,8 +143,11 @@ const show_form = ref(false);
   }
 
     &.show {
-      animation: show 3s 1;
-      animation-fill-mode: forwards;
+      display: flex;
+      z-index: 2;
+      animation-name: slideInUp;
+      animation-duration: 2s;
+      animation-fill-mode: both;
     }
 }
 
@@ -169,20 +162,27 @@ const show_form = ref(false);
 }
 
 @keyframes transform-logo {
+  0% {
+    height: 55%;
+    width: 100%;
+    opacity: .9;
+  }
   100% {
-    height: 4%;
-    width: 7%;
+    height: 27%;
+    width: 100%;
+    opacity: .1;
   }
 }
 
-@media (min-width: 300px) {
-  @keyframes transform-logo__img {
-  100% {
-    margin-left: 10px;
-    padding-top: 10px;
-    align-self: center;
-    width: 25px;
+@keyframes slideInUp {
+  0% {
+    opacity: 0;
+  transform: translateY(120px);
+  visibility: visible;
   }
-}    
-}
+  100% {
+    opacity: 1;
+  transform: translateY(0px);
+  }
+  } 
 </style>
