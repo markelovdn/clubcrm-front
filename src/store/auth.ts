@@ -1,18 +1,27 @@
 import { defineStore } from "pinia";
+import axios from "axios"
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
-        count: 0,
-        name: 'Eduardo'
+        user: {},
     }),
 
     getters: {
-        doubleCount: (state) => state.count * 2,
+        getUser(state){
+            return state.user
+          }
     },
 
     actions: {
-        increment() {
-            this.count++
-        },
+        async fetchUsers() {
+            try {
+              const data = await axios.post('/api/login')
+                this.user = data.data
+              }
+              catch (error) {
+                alert(error)
+                console.log(error)
+            }
+          }
     },
 })

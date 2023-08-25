@@ -19,7 +19,7 @@ const show_form = ref(false);
 <div :class="['hero-overlay', {show_form: show_form}]"></div>
 <div 
 :class="['hero-container', {show_form: show_form}]" 
-style="background: url('src/assets/img/taekwondo-bg.jpg') center center/cover no-repeat">
+style="background: url('/taekwondo-bg.jpg') center center/cover no-repeat">
   <div :class="['hero-container__logo', {show_form: show_form}]">
       <img :class="['img', {show_form: show_form}]" src="@/assets/img/legion_1.png" >
     </div>
@@ -40,9 +40,7 @@ style="background: url('src/assets/img/taekwondo-bg.jpg') center center/cover no
     </div>
 </div>
 <div :class="['login-form', {show: show_form}]">
-  <div class="login-form__content">
     <LoginForm />
-  </div>
 </div>
 </template>
 
@@ -132,15 +130,11 @@ style="background: url('src/assets/img/taekwondo-bg.jpg') center center/cover no
   position: absolute;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 90vh;
-  top: 50px;
+  width: 99vw;
+  height: 99vh;
+  top: 0px;
   opacity: 0;
   z-index: -1;
-
-  &__content {
-    // border: 1px solid red;
-  }
 
     &.show {
       display: flex;
@@ -148,6 +142,7 @@ style="background: url('src/assets/img/taekwondo-bg.jpg') center center/cover no
       animation-name: slideInUp;
       animation-duration: 2s;
       animation-fill-mode: both;
+      overflow: hidden;
     }
 }
 

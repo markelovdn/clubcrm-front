@@ -1,24 +1,34 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { vMaska } from "maska"
+import { ref, onMounted, computed } from 'vue';
 import BaseInput from '@/components/ui/BaseInput.vue';
 import BaseButton from '@/components/ui/BaseButton.vue';
+import { useAuthStore } from '../../store/auth';
 
-const forgotPassword :boolean = ref(false);
-const showPassword: boolean = ref(false);
-const passwordField: string = ref('');
+const forgotPassword = ref<Boolean>(false);
+const showPassword = ref<Boolean>(false);
+const passwordField = ref<String>('');
+const authStore = useAuthStore();
+const getUser = computed(() => {
+  return authStore.getUser;
+});
+const user = computed(() => {
+  return authStore.user;
+});
+onMounted(() => {
+  authStore.fetchUsers();
+});
 </script>
 
 <template>
+  <div class="login-form__content">
     <div class="login-form__input">
       <BaseInput
-    type="text"
-    name="phone"
-    placeholder="Телефон"
-    label="Телефон"
-    width="90%"
-    maska="+7 (###) ###-##-##"
-    />
+        type="text"
+        name="phone"
+        placeholder="Телефон"
+        label="Телефон"
+        width="90%"
+        maska="+7 (###) ###-##-##"/>
     </div>
     
     <div class="login-form__input">
@@ -63,17 +73,26 @@ const passwordField: string = ref('');
       size = "large"
       @click="forgotPassword = !forgotPassword"/>
 
-    <div v-if="forgotPassword" class="forgot-password">
+    <div class="forgot-password">
         <router-link color="white" to="/profile">
           <span>
-            Забыли пароль?
+            Забыли пароль? {{ authStore.user }}
           </span>
         </router-link>
     </div>
+  </div>
+    
 
 </template>
 
 <style scoped lang="scss">
+.login-form__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  height: 90vh;
+}
   .login-form__input {
     border-radius: 8px;
     margin-bottom: 30px;
@@ -81,9 +100,9 @@ const passwordField: string = ref('');
   }
 
   .forgot-password {
-    padding-top: 20px;
+    padding-top: 40px;
     text-align: center;
-
+  
     & span {
       color: white;
     }
