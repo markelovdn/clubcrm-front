@@ -4,6 +4,7 @@ import axios from "axios"
 export const useAuthStore = defineStore('auth', {
     state: () => ({
         user: {},
+        errors: {},
     }),
 
     getters: {
@@ -13,15 +14,17 @@ export const useAuthStore = defineStore('auth', {
     },
 
     actions: {
-        async fetchUsers() {
-            try {
-              const data = await axios.post('/api/login')
-                this.user = data.data
-              }
-              catch (error) {
-                alert(error)
-                console.log(error)
-            }
+        async fetchUser(phone: string, password: string) {
+              const data = await axios.post('/api/login', {
+                phone: phone,
+                password: password,
+              }).then((response) => {
+                this.user = response.data;
+                // console.log(response);
+              }).catch((errors) => {
+                this.errors = errors.data;
+                // console.log(errors)
+              })
           }
     },
 })

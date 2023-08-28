@@ -1,34 +1,62 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, computed } from 'vue';
 import BaseInput from '@/components/ui/BaseInput.vue';
 import BaseButton from '@/components/ui/BaseButton.vue';
 import { useAuthStore } from '../../store/auth';
+import useVuelidate from '@vuelidate/core'
+import {helpers, minLength, required, not} from '@vuelidate/validators'
 
-const forgotPassword = ref<Boolean>(false);
 const showPassword = ref<Boolean>(false);
 const passwordField = ref<String>('');
+const phoneField = ref<String>('');
 const authStore = useAuthStore();
-const getUser = computed(() => {
-  return authStore.getUser;
-});
-const user = computed(() => {
-  return authStore.user;
-});
-onMounted(() => {
-  authStore.fetchUsers();
-});
+const userError = ref({}); 
+
+const getUserError = () => {
+  if(authStore.user.error) {
+    userError.value = authStore.user.error.type; 
+  }
+};
+
+const rules = computed(() => {
+  const localRules = {
+          phoneField: {
+    minLength: helpers.withMessage(`Минимальная длина: 11 цифр`, minLength(17))
+  },
+
+  passwordField: {required},
+
+      }
+      if (userError.value === 'phone') {
+        // if billing is not the same as shipping, require it
+        console.log(userError.value)
+        
+      }
+      return localRules
+})
+
+const v = useVuelidate(rules, {phoneField, passwordField})
+
+const submitForm = () => {
+  v.value.$touch()
+  if (v.value.$error) return
+  alert('Form submitted')
+}
 </script>
 
 <template>
   <div class="login-form__content">
-    <div class="login-form__input">
+    <form @submit.prevent="submitForm">
+      <div class="login-form__input">
       <BaseInput
         type="text"
         name="phone"
         placeholder="Телефон"
         label="Телефон"
         width="90%"
-        maska="+7 (###) ###-##-##"/>
+        maska="+7 (###) ### ####"
+        v-model:value="v.phoneField.$model"
+        :error="v.phoneField.$errors"/>
     </div>
     
     <div class="login-form__input">
@@ -39,8 +67,7 @@ onMounted(() => {
         label="Пароль"
         width="90%"
         :hidden="showPassword"
-        v-model:value="passwordField"
-    />
+        v-model:value="passwordField"/>
     <BaseInput 
         type="text"
         name="passwordShow"
@@ -51,7 +78,8 @@ onMounted(() => {
         v-model:value="passwordField"
     />
     </div>
-
+    </form>
+    
     <div class="show-hide__password">
       <span
         v-if="!showPassword"
@@ -71,12 +99,12 @@ onMounted(() => {
       label_color = "white" outlined color = "danger"
       rounded
       size = "large"
-      @click="forgotPassword = !forgotPassword"/>
+      @click="authStore.fetchUser(phoneField, passwordField);"/>
 
     <div class="forgot-password">
         <router-link color="white" to="/profile">
           <span>
-            Забыли пароль? {{ authStore.user }}
+            Забыли пароль?  {{ getUserError() }}
           </span>
         </router-link>
     </div>
@@ -96,7 +124,6 @@ onMounted(() => {
   .login-form__input {
     border-radius: 8px;
     margin-bottom: 30px;
-    box-shadow: -5px -5px 5px -5px rgb(255, 255, 255) inset;
   }
 
   .forgot-password {

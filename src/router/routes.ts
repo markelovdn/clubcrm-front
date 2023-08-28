@@ -35,7 +35,17 @@ const routes: Array<RouteRecordRaw> = [
     path: '/button',
     name: 'Button',
     component: () =>
-      import(/* webpackChunkName: "profile" */ '@/pages/ui/Button.vue'),
+      import('@/pages/ui/Button.vue'),
+    meta: {
+      layout: 'Cabinet',
+    },
+  },
+
+  {
+    path: '/input',
+    name: 'Input',
+    component: () =>
+      import('@/pages/ui/Input.vue'),
     meta: {
       layout: 'Cabinet',
     },

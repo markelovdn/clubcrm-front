@@ -10,12 +10,12 @@
       @input="updateValue"
       :hidden="hidden">
     <label :for="name" class="input-label">{{ label }}</label>
-    <TransitionGroup>
+  </div>
+  <TransitionGroup>
       <div class="base-error" v-for="element of error" :key="element.$uid">
         <div class="base-error__message">{{ element.$message }}</div>
       </div>
     </TransitionGroup>
-  </div>
 </template>
 
 <script setup>
