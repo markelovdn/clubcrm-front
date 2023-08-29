@@ -15,7 +15,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/about',
     name: 'About',
     component: () =>
-      import(/* webpackChunkName: "about" */ '@/pages/TheAbout.vue'),
+      import('@/pages/TheAbout.vue'),
     meta: {
       layout: 'Register',
     },
@@ -25,7 +25,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/profile',
     name: 'Profile',
     component: () =>
-      import(/* webpackChunkName: "profile" */ '@/pages/TheProfile.vue'),
+      import('@/pages/TheProfile.vue'),
     meta: {
       layout: 'Cabinet',
     },

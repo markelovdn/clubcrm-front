@@ -3,14 +3,10 @@
       :class="['base-button', `base-button__${color}`,
        {'base-button__rounded': rounded},
        {'base-button__outlined': outlined},
-       {'base-button__icon': icon},
-       {'base-button__icon': icon},
        {'base-button__large': size === 'large'}]"
       :disabled="disabled"
       @click="clickOnButton">
-    <span>
-      <font-awesome-icon :icon="`fa-${icon_option} fa-${icon}`" />
-    </span>
+
     <span :class="{
       label_white: label_color === 'white',
       label_black: label_color === 'black'
@@ -46,15 +42,6 @@ const props = defineProps({
   outlined: {
     type: Boolean,
     required: false
-  },
-  icon: {
-    type: String,
-    required: false,
-  },
-  icon_option: {
-    type: String,
-    required: false,
-    default: 'solid'
   },
   size: {
     type: String,

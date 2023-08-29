@@ -10,20 +10,22 @@ export const useAuthStore = defineStore('auth', {
     getters: {
         getUser(state){
             return state.user
-          }
+          },
     },
 
     actions: {
-        async fetchUser(phone: string, password: string) {
+        async loginUser(phone: string, password: string) {
               const data = await axios.post('/api/login', {
                 phone: phone,
                 password: password,
               }).then((response) => {
-                this.user = response.data;
-                // console.log(response);
+                localStorage.setItem('token', response.data.access_token)
+                this.user = response.data.user;
+                // console.log(response.data.user)
+                // window.location.replace("/profile")
+
               }).catch((errors) => {
-                this.errors = errors.data;
-                // console.log(errors)
+                this.errors = errors.response;
               })
           }
     },

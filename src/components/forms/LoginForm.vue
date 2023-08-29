@@ -2,52 +2,29 @@
 import { ref, computed } from 'vue';
 import BaseInput from '@/components/ui/BaseInput.vue';
 import BaseButton from '@/components/ui/BaseButton.vue';
-import { useAuthStore } from '../../store/auth';
+import { useAuthStore } from '@/store/auth';
 import useVuelidate from '@vuelidate/core'
-import {helpers, minLength, required, not} from '@vuelidate/validators'
+import {helpers, minLength } from '@vuelidate/validators'
+import { useIsValidPhone, useIsValidPassword } from '@/components/forms/validation.ts'
 
 const showPassword = ref<Boolean>(false);
 const passwordField = ref<String>('');
 const phoneField = ref<String>('');
 const authStore = useAuthStore();
-const userError = ref({}); 
 
-const getUserError = () => {
-  if(authStore.user.error) {
-    userError.value = authStore.user.error.type; 
-  }
-};
-
-const rules = computed(() => {
-  const localRules = {
-          phoneField: {
-    minLength: helpers.withMessage(`Минимальная длина: 11 цифр`, minLength(17))
+const rules = computed(() => ({
+  phoneField: {
+    minLength: helpers.withMessage(`Минимальная длина: 11 цифр`, minLength(17)),
   },
+}))
 
-  passwordField: {required},
+const v = useVuelidate(rules, { phoneField })
 
-      }
-      if (userError.value === 'phone') {
-        // if billing is not the same as shipping, require it
-        console.log(userError.value)
-        
-      }
-      return localRules
-})
-
-const v = useVuelidate(rules, {phoneField, passwordField})
-
-const submitForm = () => {
-  v.value.$touch()
-  if (v.value.$error) return
-  alert('Form submitted')
-}
 </script>
 
 <template>
   <div class="login-form__content">
-    <form @submit.prevent="submitForm">
-      <div class="login-form__input">
+    <div class="login-form__input">
       <BaseInput
         type="text"
         name="phone"
@@ -56,7 +33,8 @@ const submitForm = () => {
         width="90%"
         maska="+7 (###) ### ####"
         v-model:value="v.phoneField.$model"
-        :error="v.phoneField.$errors"/>
+        :error="v.phoneField.$errors"
+        :server_error="useIsValidPhone(authStore)"/>
     </div>
     
     <div class="login-form__input">
@@ -67,8 +45,10 @@ const submitForm = () => {
         label="Пароль"
         width="90%"
         :hidden="showPassword"
-        v-model:value="passwordField"/>
-    <BaseInput 
+        v-model:value="passwordField"
+        :server_error="useIsValidPassword(authStore)"
+/>
+<BaseInput 
         type="text"
         name="passwordShow"
         placeholder="Пароль"
@@ -78,8 +58,7 @@ const submitForm = () => {
         v-model:value="passwordField"
     />
     </div>
-    </form>
-    
+
     <div class="show-hide__password">
       <span
         v-if="!showPassword"
@@ -92,19 +71,18 @@ const submitForm = () => {
         <font-awesome-icon icon="fa-solid fa-eye-slash" />
       </span>
     </div>
-    
-    
+
     <BaseButton 
       label = "Войти" 
       label_color = "white" outlined color = "danger"
       rounded
       size = "large"
-      @click="authStore.fetchUser(phoneField, passwordField);"/>
+      @click="authStore.loginUser(phoneField, passwordField);"/>
 
     <div class="forgot-password">
         <router-link color="white" to="/profile">
           <span>
-            Забыли пароль?  {{ getUserError() }}
+            Забыли пароль? 
           </span>
         </router-link>
     </div>
@@ -115,7 +93,7 @@ const submitForm = () => {
 
 <style scoped lang="scss">
 .login-form__content {
-  display: flex;
+    display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;

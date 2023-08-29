@@ -1,35 +1,21 @@
-import { ref, onMounted, onUnmounted } from 'vue'
+export function useIsValidPhone (store: Object) {
+  let error = false;
+  const message = 'Данный номер телефона не зарегистрован в системе';
 
-// by convention, composable function names start with "use"
-export function useMouse() {
-  // state encapsulated and managed by the composable
-  const x = ref(0)
-  const y = ref(0)
-
-  // a composable can update its managed state over time.
-  function update(event) {
-    x.value = event.pageX
-    y.value = event.pageY
+  if(store.user.error && store.user.error.type === 'phone') {
+    error = true;
+    return { error, message }
   }
-
-  // a composable can also hook into its owner component's
-  // lifecycle to setup and teardown side effects.
-  onMounted(() => window.addEventListener('mousemove', update))
-  onUnmounted(() => window.removeEventListener('mousemove', update))
-
-  // expose managed state as return value
-  return { x, y }
+  return { error }
 }
 
-// import
-// import useVuelidate from '@vuelidate/core';
+export function useIsValidPassword (store: Object) {
+  let error = false;
+  const message = 'Не верный пароль';
 
-
-// const v = useVuelidate(rules, {nameField, emailField, luckyField, confirmPasswordField, frontendField});
-
-// const submitForm = () => {
-//   v.value.$touch()
-//   if (v.value.$error) return
-//   alert('Form submitted')
-// }
-
+  if(store.user.error && store.user.error.type === 'password') {
+    error = true;
+    return { error, message }
+  }
+  return { error }
+}

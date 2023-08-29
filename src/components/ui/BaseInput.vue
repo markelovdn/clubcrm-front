@@ -13,7 +13,16 @@
   </div>
   <TransitionGroup>
       <div class="base-error" v-for="element of error" :key="element.$uid">
-        <div class="base-error__message">{{ element.$message }}</div>
+        <div class="base-error__message">
+          {{ element.$message }}
+        </div>
+      </div>
+    </TransitionGroup>
+    <TransitionGroup>
+      <div class="base-error" v-if="server_error && server_error.message">
+        <div class="base-error__message">
+          {{server_error.message}}
+        </div>
       </div>
     </TransitionGroup>
 </template>
@@ -25,6 +34,10 @@ const emit = defineEmits(['update:value'])
 const props = defineProps({
   error: {
     type: Array,
+    required: false
+  },
+  server_error: {
+    type: Object,
     required: false
   },
   value: {
@@ -75,7 +88,7 @@ const updateValue = (e) => {
   }
 
   &-error {
-    background: $color_danger_400;
+    background: $color_danger_600;
     margin-top: 4px;
     border-radius: 7px;
     font-size: 13px;
