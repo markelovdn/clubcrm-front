@@ -16,7 +16,7 @@ const show_form = ref(false);
 </script>
 
 <template>
-<div :class="['hero-overlay', {show_form: show_form}]"></div>
+<!-- <div :class="['hero-overlay', {show_form: show_form}]"></div> -->
 <div 
 :class="['hero-container', {show_form: show_form}]" 
 style="background: url('/taekwondo-bg.jpg') center center/cover no-repeat">
@@ -35,12 +35,13 @@ style="background: url('/taekwondo-bg.jpg') center center/cover no-repeat">
       label_color = "white" outlined color = "danger"
       rounded
       size = "large"
-      @click = "show_form = !show_form"/>
+      @click = "show_form = !show_form" />
       </span>
     </div>
 </div>
 <div :class="['login-form', {show: show_form}]">
-    <LoginForm />
+  <span>asd</span>  
+  <!-- <LoginForm /> -->
 </div>
 </template>
 
@@ -131,10 +132,11 @@ style="background: url('/taekwondo-bg.jpg') center center/cover no-repeat">
   align-items: center;
   justify-content: center;
   width: 99vw;
-  height: 99vh;
+  height: 90vh;
   top: 0px;
   opacity: 0;
   z-index: -1;
+  // overflow: hidden;
 
     &.show {
       display: flex;
@@ -142,7 +144,7 @@ style="background: url('/taekwondo-bg.jpg') center center/cover no-repeat">
       animation-name: slideInUp;
       animation-duration: 2s;
       animation-fill-mode: both;
-      overflow: hidden;
+      // overflow: hidden;
     }
 }
 

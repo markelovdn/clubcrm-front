@@ -1,0 +1,538 @@
+From 9ea5361b209ffc301db4077cfe0e9019c88de4e1 Mon Sep 17 00:00:00 2001
+From: George Lubenets <g.lubenets@rt-solar.ru>
+Date: Wed, 30 Aug 2023 08:36:02 +0300
+Subject: [PATCH] =?UTF-8?q?=D0=98=D1=81=D0=BF=D1=80=D0=B0=D0=B2=D0=B8?=
+ =?UTF-8?q?=D0=BB=20=D0=BF=D0=BE=D0=B4=D0=BA=D0=BB=D1=8E=D1=87=D0=B5=D0=BD?=
+ =?UTF-8?q?=D0=B8=D0=B5=20pinia?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
++ пришлось исправить пути импорта файлов, тк eslint ругался
+---
+ src/components/forms/LoginForm.vue           |  8 +--
+ src/components/ui/BaseButton.vue             |  4 +-
+ src/components/ui/Checkbox/CheckboxGroup.vue |  2 +-
+ src/layouts/HeroLayout.vue                   |  7 ++-
+ src/main.ts                                  |  5 +-
+ src/pages/TheProfile.vue                     | 10 ++--
+ src/pages/ui/Accordion.vue                   |  4 +-
+ src/pages/ui/Button.vue                      |  2 +-
+ src/pages/ui/Card.vue                        |  2 +-
+ src/pages/ui/Checkbox.vue                    |  4 +-
+ src/pages/ui/Input.vue                       |  8 +--
+ src/pages/ui/Label.vue                       |  2 +-
+ src/pages/ui/Modal.vue                       |  8 +--
+ src/pages/ui/Notification.vue                |  4 +-
+ src/pages/ui/Progress.vue                    |  6 +--
+ src/pages/ui/Radiobutton.vue                 |  2 +-
+ src/pages/ui/Select.vue                      |  2 +-
+ src/pages/ui/Spinner.vue                     |  4 +-
+ src/pages/ui/Table.vue                       |  8 +--
+ src/pages/ui/Tabs.vue                        |  2 +-
+ src/pages/ui/Upload.vue                      |  2 +-
+ src/router/routes.ts                         | 54 ++++++++++----------
+ src/store/auth.ts                            |  4 +-
+ 23 files changed, 75 insertions(+), 79 deletions(-)
+
+diff --git a/src/components/forms/LoginForm.vue b/src/components/forms/LoginForm.vue
+index 81b00ef..4a89a2d 100644
+--- a/src/components/forms/LoginForm.vue
++++ b/src/components/forms/LoginForm.vue
+@@ -1,11 +1,11 @@
+ <script setup lang="ts">
+ import { ref, computed } from 'vue';
+-import BaseInput from '@/components/ui/BaseInput.vue';
+-import BaseButton from '@/components/ui/BaseButton.vue';
+-import { useAuthStore } from '@/store/auth';
++import BaseInput from '../../components/ui/BaseInput.vue';
++import BaseButton from '../../components/ui/BaseButton.vue';
++import {useAuthStore} from '../../store/auth'
+ import useVuelidate from '@vuelidate/core'
+ import {helpers, minLength } from '@vuelidate/validators'
+-import { useIsValidPhone, useIsValidPassword } from '@/components/forms/validation.ts'
++import { useIsValidPassword, useIsValidPhone } from './validation';
+ 
+ const showPassword = ref<Boolean>(false);
+ const passwordField = ref<String>('');
+diff --git a/src/components/ui/BaseButton.vue b/src/components/ui/BaseButton.vue
+index 52d5fee..d698363 100644
+--- a/src/components/ui/BaseButton.vue
++++ b/src/components/ui/BaseButton.vue
+@@ -14,8 +14,8 @@
+   </button>
+ </template>
+ 
+-<script setup>
+-const props = defineProps({
++<script lang="ts" setup>
++defineProps({
+   label: {
+     type: String,
+     default: 'Button',
+diff --git a/src/components/ui/Checkbox/CheckboxGroup.vue b/src/components/ui/Checkbox/CheckboxGroup.vue
+index bbf4a74..83fc6c7 100644
+--- a/src/components/ui/Checkbox/CheckboxGroup.vue
++++ b/src/components/ui/Checkbox/CheckboxGroup.vue
+@@ -13,7 +13,7 @@
+ </template>
+ 
+ <script setup>
+-import BaseCheckbox from '@/components/ui/Checkbox/BaseCheckbox.vue'
++import BaseCheckbox from '../components/ui/Checkbox/BaseCheckbox.vue'
+ 
+ const emit = defineEmits(['update:value'])
+ const props = defineProps({
+diff --git a/src/layouts/HeroLayout.vue b/src/layouts/HeroLayout.vue
+index 9166b62..91efb74 100644
+--- a/src/layouts/HeroLayout.vue
++++ b/src/layouts/HeroLayout.vue
+@@ -2,7 +2,8 @@
+ // Path: src\layouts\HeroLayout.vue
+ 
+ import { defineComponent } from "vue";
+-
++import BaseButton from '../components/ui/BaseButton.vue';
++import LoginForm from "../components/forms/LoginForm.vue"
+ export default defineComponent({
+     name: "HeroLayout",
+ });
+@@ -10,8 +11,6 @@ export default defineComponent({
+ 
+ <script setup lang="ts">
+ import { ref } from 'vue';
+-import BaseButton from '@/components/ui/BaseButton.vue'
+-import LoginForm from '@/components/forms/LoginForm.vue'
+ const show_form = ref(false);
+ </script>
+ 
+@@ -21,7 +20,7 @@ const show_form = ref(false);
+ :class="['hero-container', {show_form: show_form}]" 
+ style="background: url('/taekwondo-bg.jpg') center center/cover no-repeat">
+   <div :class="['hero-container__logo', {show_form: show_form}]">
+-      <img :class="['img', {show_form: show_form}]" src="@/assets/img/legion_1.png" >
++      <img :class="['img', {show_form: show_form}]" src="../assets/img/legion_1.png" >
+     </div>
+ <div class="hero-container__text">
+       <span :class="{hide: show_form}">
+diff --git a/src/main.ts b/src/main.ts
+index 0e748d1..3cbe9a7 100755
+--- a/src/main.ts
++++ b/src/main.ts
+@@ -10,12 +10,11 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+ import { registerLayouts } from './layouts/register';
+ 
+ const app = createApp(App);
+-const pinia = createPinia();
+ 
+ app.component('font-awesome-icon', FontAwesomeIcon);
+-app.use(pinia);
++
+ app.use(router);
+ 
+ registerLayouts(app);
+ 
+-app.mount('#app');
+\ No newline at end of file
++app.use(createPinia()).mount('#app');
+\ No newline at end of file
+diff --git a/src/pages/TheProfile.vue b/src/pages/TheProfile.vue
+index 5f5a021..06dd2da 100644
+--- a/src/pages/TheProfile.vue
++++ b/src/pages/TheProfile.vue
+@@ -1,6 +1,6 @@
+ <script lang="ts" setup>
+-import { computed, onMounted } from 'vue'
+-import { useAuthStore } from '@/store/auth';
++import { computed } from 'vue'
++import { useAuthStore } from '../store/auth';
+ 
+ const authStore = useAuthStore()
+ 
+@@ -8,9 +8,9 @@ const getUser = computed(() => {
+   return authStore.getUser;
+ });
+ 
+-onMounted(() => {
+-  authStore.loginUser();
+-});
++// onMounted(() => {
++//   authStore.loginUser();
++// });
+ 
+ // path: src/views/Profile.vue
+ </script>
+diff --git a/src/pages/ui/Accordion.vue b/src/pages/ui/Accordion.vue
+index f7edbfa..09a6b21 100644
+--- a/src/pages/ui/Accordion.vue
++++ b/src/pages/ui/Accordion.vue
+@@ -13,8 +13,8 @@
+ 
+ <script setup>
+ import { ref } from 'vue'
+-import BaseAccordion from '@/components/ui/BaseAccordion.vue'
+-import BaseButton from '@/components/ui/BaseButton.vue'
++import BaseAccordion from '../components/ui/BaseAccordion.vue'
++import BaseButton from '../components/ui/BaseButton.vue'
+ 
+ const items = ref([
+   {id: '1', title: 'item 1', content: 'content 1askjdflaksdjg;lkfj;alksdjf;askldjf;alksdjf;lkasdjf;lksjdf;laksdjf;laksdjf;alksdjf;laksdjf;laksjdf;laksjdf;lkasjdf;lkasjd;fklajsd;gklas;lgdka;sldgh;alskgja;lskdj;alskdjg;alksjg;alksdjg;alksdjg;alksjg;alksjg;alksdjg;aslkdgj;alksjg;alskjg;alksjdg;aldfgdsfgsdfgdsfgdsfgsdfgjzjchvjkzxhclvkjhxlckjzhvlkjchvlkzjxhcvlkjzxhcvlkjhzxclkjvhlzxkjchvlkzxjchvlkzjxhdfjkasdlgkhdsflkghdsflkj'},
+diff --git a/src/pages/ui/Button.vue b/src/pages/ui/Button.vue
+index 13e8c19..e5d7004 100644
+--- a/src/pages/ui/Button.vue
++++ b/src/pages/ui/Button.vue
+@@ -59,7 +59,7 @@
+ </template>
+ 
+ <script setup>
+-import BaseButton from '@/components/ui/BaseButton.vue'
++import BaseButton from '../components/ui/BaseButton.vue'
+ 
+ const eventForButton = () => {
+   alert ('You click for Basebutton')
+diff --git a/src/pages/ui/Card.vue b/src/pages/ui/Card.vue
+index 07ce5ec..6b88cc2 100644
+--- a/src/pages/ui/Card.vue
++++ b/src/pages/ui/Card.vue
+@@ -25,7 +25,7 @@
+ <script setup>
+ import { ref } from 'vue';
+ import draggable from 'vuedraggable';
+-import BaseCard from '@/components/ui/BaseCard.vue';
++import BaseCard from '../components/ui/BaseCard.vue';
+ 
+ const items = ref([
+   { id: 1, name: "item 1", content: "content 1" },
+diff --git a/src/pages/ui/Checkbox.vue b/src/pages/ui/Checkbox.vue
+index 5c787c5..14ac163 100644
+--- a/src/pages/ui/Checkbox.vue
++++ b/src/pages/ui/Checkbox.vue
+@@ -39,8 +39,8 @@
+ 
+ <script setup>
+ import { ref } from 'vue'
+-import BaseCheckbox from '@/components/ui/Checkbox/BaseCheckbox.vue'
+-import CheckboxGroup from '@/components/ui/Checkbox/CheckboxGroup.vue'
++import BaseCheckbox from '../components/ui/Checkbox/BaseCheckbox.vue'
++import CheckboxGroup from '../components/ui/Checkbox/CheckboxGroup.vue'
+ 
+ const checkboxActive = ref(true)
+ const checkboxDisabled = ref(true)
+diff --git a/src/pages/ui/Input.vue b/src/pages/ui/Input.vue
+index 589b135..4408506 100644
+--- a/src/pages/ui/Input.vue
++++ b/src/pages/ui/Input.vue
+@@ -49,14 +49,14 @@
+   </form>
+ </template>
+ 
+-<script setup>
++<script lang="ts" setup>
+ // TODO: логику с валидацией инпутов (напр. useFieldValidation) можно вытащить в Composables https://vuejs.org/guide/reusability/composables.html. Да там и не только инпуты валидировать можно, но и любые другие компоненты, работающие с данными (Select, Checkbox, ...)
+ import { ref, computed } from 'vue'
+ import useVuelidate from '@vuelidate/core'
+ import {helpers, minLength, maxLength, numeric, email, sameAs} from '@vuelidate/validators'
+ 
+-import BaseInput from '@/components/ui/BaseInput.vue'
+-import BaseButton from '@/components/ui/BaseButton.vue'
++import BaseInput from '../components/ui/BaseInput.vue'
++import BaseButton from '../components/ui/BaseButton.vue'
+ 
+ const nameField = ref('')
+ const emailField = ref('')
+@@ -65,7 +65,7 @@ const passwordField = ref('')
+ const confirmPasswordField = ref('')
+ const frontendField = ref('')
+ 
+-const mustBeFrontend = (value) => value.includes('frontend')
++const mustBeFrontend = (v: string) => v.includes('frontend')
+ 
+ const rules = computed(() => ({
+   nameField: {
+diff --git a/src/pages/ui/Label.vue b/src/pages/ui/Label.vue
+index 56e94f8..f8863f1 100644
+--- a/src/pages/ui/Label.vue
++++ b/src/pages/ui/Label.vue
+@@ -18,7 +18,7 @@
+ </template>
+ 
+ <script setup>
+-import BaseLabel from '@/components/ui/BaseLabel.vue'
++import BaseLabel from '../components/ui/BaseLabel.vue'
+ </script>
+ 
+ <style scoped lang="scss">
+diff --git a/src/pages/ui/Modal.vue b/src/pages/ui/Modal.vue
+index 4db65dc..0ac01bd 100644
+--- a/src/pages/ui/Modal.vue
++++ b/src/pages/ui/Modal.vue
+@@ -36,10 +36,10 @@
+ 
+ <script setup>
+ import { ref } from 'vue'
+-import BaseModal from '@/components/ui/BaseModal.vue';
+-import BaseButton from '@/components/ui/BaseButton.vue';
+-import BaseCheckbox from '@/components/ui/Checkbox/BaseCheckbox.vue';
+-import BaseInput from '@/components/ui/BaseInput.vue';
++import BaseModal from '../components/ui/BaseModal.vue';
++import BaseButton from '../components/ui/BaseButton.vue';
++import BaseCheckbox from '../components/ui/Checkbox/BaseCheckbox.vue';
++import BaseInput from '../components/ui/BaseInput.vue';
+ 
+ const showModal = ref(false)
+ const luckyField = ref('')
+diff --git a/src/pages/ui/Notification.vue b/src/pages/ui/Notification.vue
+index 484a2a6..8ab9ba7 100644
+--- a/src/pages/ui/Notification.vue
++++ b/src/pages/ui/Notification.vue
+@@ -35,8 +35,8 @@
+ 
+ <script setup>
+ import { ref } from 'vue';
+-import BaseNotification from '@/components/ui/BaseNotification.vue';
+-import BaseButton from '@/components/ui/BaseButton.vue';
++import BaseNotification from '../components/ui/BaseNotification.vue';
++import BaseButton from '../components/ui/BaseButton.vue';
+ 
+ const showNotification = ref(false)
+ 
+diff --git a/src/pages/ui/Progress.vue b/src/pages/ui/Progress.vue
+index 9c8163b..faa7aaf 100644
+--- a/src/pages/ui/Progress.vue
++++ b/src/pages/ui/Progress.vue
+@@ -14,9 +14,9 @@
+ 
+ <script setup>
+ import {ref} from 'vue'
+-import ProgressBar from '@/components/ui/Progress/ProgressBar.vue'
+-import ProgressCircle from '@/components/ui/Progress/ProgressCircle.vue'
+-import BaseButton from '@/components/ui/BaseButton.vue'
++import ProgressBar from '../components/ui/Progress/ProgressBar.vue'
++import ProgressCircle from '../components/ui/Progress/ProgressCircle.vue'
++import BaseButton from '../components/ui/BaseButton.vue'
+ 
+ const percentBar = ref(40)
+ const percentCircle = ref(60)
+diff --git a/src/pages/ui/Radiobutton.vue b/src/pages/ui/Radiobutton.vue
+index c151dbe..a7ab297 100644
+--- a/src/pages/ui/Radiobutton.vue
++++ b/src/pages/ui/Radiobutton.vue
+@@ -28,7 +28,7 @@
+ 
+ <script setup>
+ import { ref } from 'vue'
+-import BaseRadiobutton from '@/components/ui/BaseRadiobutton.vue'
++import BaseRadiobutton from '../components/ui/BaseRadiobutton.vue'
+ 
+ const footballClubs = ref([
+   {name: 'CSKA Moscow', id: 'f1'},
+diff --git a/src/pages/ui/Select.vue b/src/pages/ui/Select.vue
+index 299d66c..590eebd 100644
+--- a/src/pages/ui/Select.vue
++++ b/src/pages/ui/Select.vue
+@@ -28,7 +28,7 @@
+ 
+ <script setup>
+ import { ref } from 'vue'
+-import BaseSelect from '@/components/ui/BaseSelect.vue'
++import BaseSelect from '../components/ui/BaseSelect.vue'
+ 
+ const items = ref([
+   {name: 'item1asdasdasd', id: 'h1'},
+diff --git a/src/pages/ui/Spinner.vue b/src/pages/ui/Spinner.vue
+index e8a0a90..748478b 100644
+--- a/src/pages/ui/Spinner.vue
++++ b/src/pages/ui/Spinner.vue
+@@ -7,8 +7,8 @@
+ </template>
+ 
+ <script setup>
+-import BaseSpinner from '@/components/ui/BaseSpinner.vue';
+-import BaseButton from '@/components/ui/BaseButton.vue';
++import BaseSpinner from '../components/ui/BaseSpinner.vue';
++import BaseButton from '../components/ui/BaseButton.vue';
+ 
+ import { ref } from 'vue';
+ 
+diff --git a/src/pages/ui/Table.vue b/src/pages/ui/Table.vue
+index 8cc9000..fc54807 100644
+--- a/src/pages/ui/Table.vue
++++ b/src/pages/ui/Table.vue
+@@ -1,9 +1,9 @@
+ <script setup>
+ import {ref, computed} from 'vue'
+-import BaseTable from '@/components/ui/Table/BaseTable.vue'
+-import TableRow from '@/components/ui/Table/TableRow.vue'
+-import TableColumn from '@/components/ui/Table/TableColumn.vue'
+-import BaseButton from '@/components/ui/BaseButton.vue'
++import BaseTable from '../components/ui/Table/BaseTable.vue'
++import TableRow from '../components/ui/Table/TableRow.vue'
++import TableColumn from '../components/ui/Table/TableColumn.vue'
++import BaseButton from '../components/ui/BaseButton.vue'
+ 
+ const tableHeads = ['Id', 'Author', 'Title', 'Cover', '']
+ const tableSizeColumns = '50px 1fr 2fr 150px 140px'
+diff --git a/src/pages/ui/Tabs.vue b/src/pages/ui/Tabs.vue
+index 165be58..d1b5a2f 100644
+--- a/src/pages/ui/Tabs.vue
++++ b/src/pages/ui/Tabs.vue
+@@ -18,7 +18,7 @@
+ 
+ <script setup>
+ import {ref} from 'vue'
+-import BaseTabs from '@/components/ui/BaseTabs.vue'
++import BaseTabs from '../components/ui/BaseTabs.vue'
+ 
+ const tabs = [
+   {name: 'About', label: 'О проекте'},
+diff --git a/src/pages/ui/Upload.vue b/src/pages/ui/Upload.vue
+index c6622e8..55ede25 100644
+--- a/src/pages/ui/Upload.vue
++++ b/src/pages/ui/Upload.vue
+@@ -10,7 +10,7 @@
+ 
+ <script setup>
+ import { ref } from 'vue'
+-import BaseUpload from '@/components/ui/BaseUpload.vue';
++import BaseUpload from '../components/ui/BaseUpload.vue';
+ 
+ const uploadedFiles = ref({})
+ </script>
+\ No newline at end of file
+diff --git a/src/router/routes.ts b/src/router/routes.ts
+index 1be7785..57171ad 100644
+--- a/src/router/routes.ts
++++ b/src/router/routes.ts
+@@ -6,7 +6,7 @@ const routes: Array<RouteRecordRaw> = [
+   {
+     path: '/',
+     name: 'Home',
+-    component: () => import(/* webpackChunkName: "home" */ '@/pages/TheIndex.vue'),
++    component: () => import(/* webpackChunkName: "home" */ '../pages/TheIndex.vue'),
+     meta: {
+       layout: 'Hero',
+     },
+@@ -15,7 +15,7 @@ const routes: Array<RouteRecordRaw> = [
+     path: '/about',
+     name: 'About',
+     component: () =>
+-      import('@/pages/TheAbout.vue'),
++      import('../pages/TheAbout.vue'),
+     meta: {
+       layout: 'Register',
+     },
+@@ -25,7 +25,7 @@ const routes: Array<RouteRecordRaw> = [
+     path: '/profile',
+     name: 'Profile',
+     component: () =>
+-      import('@/pages/TheProfile.vue'),
++      import('../pages/TheProfile.vue'),
+     meta: {
+       layout: 'Cabinet',
+     },
+@@ -35,7 +35,7 @@ const routes: Array<RouteRecordRaw> = [
+     path: '/button',
+     name: 'Button',
+     component: () =>
+-      import('@/pages/ui/Button.vue'),
++      import('../pages/ui/Button.vue'),
+     meta: {
+       layout: 'Cabinet',
+     },
+@@ -45,7 +45,7 @@ const routes: Array<RouteRecordRaw> = [
+     path: '/input',
+     name: 'Input',
+     component: () =>
+-      import('@/pages/ui/Input.vue'),
++      import('../pages/ui/Input.vue'),
+     meta: {
+       layout: 'Cabinet',
+     },
+@@ -55,22 +55,22 @@ const routes: Array<RouteRecordRaw> = [
+ export default routes;
+ 
+ // import { createRouter, createWebHistory } from 'vue-router';
+-// import Hero from '@/layouts/HeroLayout.vue';
+-// import Radiobutton from '@/pages/ui/Radiobutton.vue';
+-// import Progress from '@/pages/ui/Progress.vue';
+-// import Input from '@/pages/ui/Input.vue';
+-// import Select from '@/pages/ui/Select.vue';
+-// import Tabs from '@/pages/ui/Tabs.vue';
+-// import Table from '@/pages/ui/Table.vue';
+-// import Upload from '@/pages/ui/Upload.vue';
+-// import Modal from '@/pages/ui/Modal.vue';
+-// import Label from '@/pages/ui/Label.vue';
+-// import Accordion from '@/pages/ui/Accordion.vue';
+-// import Card from '@/pages/ui/Card.vue';
+-// import Lightbox from '@/pages/ui/Lightbox.vue';
+-// import Images from '@/pages/ui/Images.vue';
+-// import Notification from '@/pages/ui/Notification.vue';
+-// import Spinner from '@/pages/ui/Spinner.vue';
++// import Hero from '../layouts/HeroLayout.vue';
++// import Radiobutton from '../pages/ui/Radiobutton.vue';
++// import Progress from '../pages/ui/Progress.vue';
++// import Input from '../pages/ui/Input.vue';
++// import Select from '../pages/ui/Select.vue';
++// import Tabs from '../pages/ui/Tabs.vue';
++// import Table from '../pages/ui/Table.vue';
++// import Upload from '../pages/ui/Upload.vue';
++// import Modal from '../pages/ui/Modal.vue';
++// import Label from '../pages/ui/Label.vue';
++// import Accordion from '../pages/ui/Accordion.vue';
++// import Card from '../pages/ui/Card.vue';
++// import Lightbox from '../pages/ui/Lightbox.vue';
++// import Images from '../pages/ui/Images.vue';
++// import Notification from '../pages/ui/Notification.vue';
++// import Spinner from '../pages/ui/Spinner.vue';
+ 
+ 
+ // // TODO: почитай про https://router.vuejs.org/guide/advanced/lazy-loading.html возможно, что разумнее где-то будет использовать
+@@ -90,24 +90,24 @@ export default routes;
+ //       path: '/button',
+ //       name: 'Button',
+ //       components: {
+-//         default: () => import('@/pages/ui/Button.vue'),
+-//         HeroLayout: () => import('@/layouts/HeroLayout.vue'),
++//         default: () => import('../pages/ui/Button.vue'),
++//         HeroLayout: () => import('../layouts/HeroLayout.vue'),
+ //       },
+ //     },
+ //     {
+ //       path: '/typography',
+ //       name: 'Typography',
+ //       components: {
+-//         default: () => import('@/pages/ui/Typography.vue'),
+-//         HeroLayout: () => import('@/layouts/AuthLayout.vue'),
++//         default: () => import('../pages/ui/Typography.vue'),
++//         HeroLayout: () => import('../layouts/AuthLayout.vue'),
+ //       },
+ //     },
+ //     {
+ //       path: '/checkbox',
+ //       name: 'Checkbox',
+ //       components: {
+-//         default: () => import('@/pages/ui/Checkbox.vue'),
+-//         HeroLayout: () => import('@/layouts/CabinetLayout.vue'),
++//         default: () => import('../pages/ui/Checkbox.vue'),
++//         HeroLayout: () => import('../layouts/CabinetLayout.vue'),
+ //       },
+ //     },
+ //     {
+diff --git a/src/store/auth.ts b/src/store/auth.ts
+index de98e63..20e0561 100644
+--- a/src/store/auth.ts
++++ b/src/store/auth.ts
+@@ -8,9 +8,7 @@ export const useAuthStore = defineStore('auth', {
+     }),
+ 
+     getters: {
+-        getUser(state){
+-            return state.user
+-          },
++        getUser: (state) => state.user,
+     },
+ 
+     actions: {
+-- 
+2.39.1.windows.1
+
