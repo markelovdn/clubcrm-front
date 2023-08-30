@@ -36,10 +36,10 @@
 
 <script setup>
 import { ref } from 'vue'
-import BaseModal from '../components/ui/BaseModal.vue';
-import BaseButton from '../components/ui/BaseButton.vue';
-import BaseCheckbox from '../components/ui/Checkbox/BaseCheckbox.vue';
-import BaseInput from '../components/ui/BaseInput.vue';
+import BaseModal from '@/components/ui/BaseModal.vue';
+import BaseButton from '@/components/ui/BaseButton.vue';
+import BaseCheckbox from '@/components/ui/Checkbox/BaseCheckbox.vue';
+import BaseInput from '@/components/ui/BaseInput.vue';
 
 const showModal = ref(false)
 const luckyField = ref('')

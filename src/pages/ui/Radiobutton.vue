@@ -28,7 +28,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import BaseRadiobutton from '../components/ui/BaseRadiobutton.vue'
+import BaseRadiobutton from '@/components/ui/BaseRadiobutton.vue'
 
 const footballClubs = ref([
   {name: 'CSKA Moscow', id: 'f1'},

@@ -27,7 +27,7 @@
     </TransitionGroup>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue"
 import { vMaska } from "maska"
 const emit = defineEmits(['update:value'])

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-// import { computed } from 'vue'
+import { onMounted } from 'vue'
 import { useAuthStore } from '../store/auth';
 
 const authStore = useAuthStore()
@@ -8,9 +8,10 @@ const authStore = useAuthStore()
 //   return authStore.getUser;
 // });
 
-// onMounted(() => {
-//   authStore.loginUser();
-// });
+onMounted(() => {
+  console.log(authStore.user)
+  console.log(authStore.getUser)
+});
 
 // path: src/views/Profile.vue
 </script>

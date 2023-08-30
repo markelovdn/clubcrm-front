@@ -25,7 +25,7 @@
 <script setup>
 import { ref } from 'vue';
 import draggable from 'vuedraggable';
-import BaseCard from '../components/ui/BaseCard.vue';
+import BaseCard from '@/components/ui/BaseCard.vue';
 
 const items = ref([
   { id: 1, name: "item 1", content: "content 1" },

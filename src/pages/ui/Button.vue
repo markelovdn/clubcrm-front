@@ -34,18 +34,18 @@
   </div>
   <h2 class="heading-2">Icon</h2>
   <div class="line">
-    <BaseButton color="primary" icon="award" outlined rounded label="Загрузить фото"/>
-    <BaseButton color="secondary" icon="calendar"/>
-    <BaseButton color="success" icon="paperclip" outlined/>
-    <BaseButton color="info" icon="clock"/>
-    <BaseButton color="warning" icon="dumbbell" outlined/>
-    <BaseButton color="danger" icon="pen-to-square"/>
-    <BaseButton color="primary" icon="medal" />
-    <BaseButton color="primary" icon="yin-yang" />
-    <BaseButton color="primary" icon="users" label=""/>
-    <BaseButton color="primary" icon="user" />
-    <BaseButton color="primary" icon="file-pdf" />
-    <BaseButton color="primary" icon="trophy" />
+    <BaseButton color="primary" outlined rounded label="Загрузить фото"/>
+    <BaseButton color="secondary" />
+    <BaseButton color="success" outlined/>
+    <BaseButton color="info" />
+    <BaseButton color="warning" outlined/>
+    <BaseButton color="danger" />
+    <BaseButton color="primary" />
+    <BaseButton color="primary" />
+    <BaseButton color="primary" label=""/>
+    <BaseButton color="primary" />
+    <BaseButton color="primary" />
+    <BaseButton color="primary" />
   </div>
   <h2 class="heading-2">Size</h2>
   <div class="line">
@@ -59,7 +59,7 @@
 </template>
 
 <script setup>
-import BaseButton from '../components/ui/BaseButton.vue'
+import BaseButton from '@/components/ui/BaseButton.vue'
 
 const eventForButton = () => {
   alert ('You click for Basebutton')

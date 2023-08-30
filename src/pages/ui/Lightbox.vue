@@ -11,8 +11,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import BaseLightbox from '../../components/ui/BaseLightbox.vue';
-import BaseButton from '../../components/ui/BaseButton.vue';
+import BaseLightbox from '@/components/ui/BaseLightbox.vue';
+import BaseButton from '@/components/ui/BaseButton.vue';
 
 const ShowLightbox = ref(false)
 </script>

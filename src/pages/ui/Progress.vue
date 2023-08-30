@@ -14,9 +14,9 @@
 
 <script setup>
 import {ref} from 'vue'
-import ProgressBar from '../components/ui/Progress/ProgressBar.vue'
-import ProgressCircle from '../components/ui/Progress/ProgressCircle.vue'
-import BaseButton from '../components/ui/BaseButton.vue'
+import ProgressBar from '@/components/ui/Progress/ProgressBar.vue'
+import ProgressCircle from '@/components/ui/Progress/ProgressCircle.vue'
+import BaseButton from '@/components/ui/BaseButton.vue'
 
 const percentBar = ref(40)
 const percentCircle = ref(60)
