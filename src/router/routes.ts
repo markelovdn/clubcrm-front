@@ -6,7 +6,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
-    component: () => import(/* webpackChunkName: "home" */ '../pages/TheIndex.vue'),
+    component: () => import( '@/pages/TheIndex.vue'),
     meta: {
       layout: 'Hero',
     },
@@ -15,7 +15,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/about',
     name: 'About',
     component: () =>
-      import('../pages/TheAbout.vue'),
+      import('@/pages/TheAbout.vue'),
     meta: {
       layout: 'Register',
     },
@@ -25,7 +25,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/profile',
     name: 'Profile',
     component: () =>
-      import('../pages/TheProfile.vue'),
+      import('@/pages/TheProfile.vue'),
     meta: {
       layout: 'Cabinet',
     },
@@ -35,7 +35,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/button',
     name: 'Button',
     component: () =>
-      import('../pages/ui/Button.vue'),
+      import('@/pages/ui/Button.vue'),
     meta: {
       layout: 'Cabinet',
     },
@@ -45,7 +45,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/input',
     name: 'Input',
     component: () =>
-      import('../pages/ui/Input.vue'),
+      import('@/pages/ui/Input.vue'),
     meta: {
       layout: 'Cabinet',
     },
