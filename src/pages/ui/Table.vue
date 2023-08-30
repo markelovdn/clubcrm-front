@@ -1,9 +1,9 @@
 <script setup>
 import {ref, computed} from 'vue'
-import BaseTable from '@/components/ui/Table/BaseTable.vue'
-import TableRow from '@/components/ui/Table/TableRow.vue'
-import TableColumn from '@/components/ui/Table/TableColumn.vue'
-import BaseButton from '@/components/ui/BaseButton.vue'
+import BaseTable from '../components/ui/Table/BaseTable.vue'
+import TableRow from '../components/ui/Table/TableRow.vue'
+import TableColumn from '../components/ui/Table/TableColumn.vue'
+import BaseButton from '../components/ui/BaseButton.vue'
 
 const tableHeads = ['Id', 'Author', 'Title', 'Cover', '']
 const tableSizeColumns = '50px 1fr 2fr 150px 140px'

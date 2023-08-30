@@ -28,7 +28,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import BaseSelect from '@/components/ui/BaseSelect.vue'
+import BaseSelect from '../components/ui/BaseSelect.vue'
 
 const items = ref([
   {name: 'item1asdasdasd', id: 'h1'},

@@ -35,8 +35,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import BaseNotification from '@/components/ui/BaseNotification.vue';
-import BaseButton from '@/components/ui/BaseButton.vue';
+import BaseNotification from '../components/ui/BaseNotification.vue';
+import BaseButton from '../components/ui/BaseButton.vue';
 
 const showNotification = ref(false)
 

@@ -10,7 +10,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import BaseUpload from '@/components/ui/BaseUpload.vue';
+import BaseUpload from '../components/ui/BaseUpload.vue';
 
 const uploadedFiles = ref({})
 </script>

@@ -14,8 +14,8 @@
   </button>
 </template>
 
-<script setup>
-const props = defineProps({
+<script lang="ts" setup>
+defineProps({
   label: {
     type: String,
     default: 'Button',

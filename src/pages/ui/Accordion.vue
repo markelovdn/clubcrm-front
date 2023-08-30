@@ -13,8 +13,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import BaseAccordion from '@/components/ui/BaseAccordion.vue'
-import BaseButton from '@/components/ui/BaseButton.vue'
+import BaseAccordion from '../components/ui/BaseAccordion.vue'
+import BaseButton from '../components/ui/BaseButton.vue'
 
 const items = ref([
   {id: '1', title: 'item 1', content: 'content 1askjdflaksdjg;lkfj;alksdjf;askldjf;alksdjf;lkasdjf;lksjdf;laksdjf;laksdjf;alksdjf;laksdjf;laksjdf;laksjdf;lkasjdf;lkasjd;fklajsd;gklas;lgdka;sldgh;alskgja;lskdj;alskdjg;alksjg;alksdjg;alksdjg;alksjg;alksjg;alksdjg;aslkdgj;alksjg;alskjg;alksjdg;aldfgdsfgsdfgdsfgdsfgsdfgjzjchvjkzxhclvkjhxlckjzhvlkjchvlkzjxhcvlkjzxhcvlkjhzxclkjvhlzxkjchvlkzxjchvlkzjxhdfjkasdlgkhdsflkghdsflkj'},

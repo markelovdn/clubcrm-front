@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import BaseInput from '@/components/ui/BaseInput.vue';
-import BaseButton from '@/components/ui/BaseButton.vue';
-import { useAuthStore } from '@/store/auth';
+import BaseInput from '../../components/ui/BaseInput.vue';
+import BaseButton from '../../components/ui/BaseButton.vue';
+import {useAuthStore} from '../../store/auth'
 import useVuelidate from '@vuelidate/core'
 import {helpers, minLength } from '@vuelidate/validators'
-import { useIsValidPhone, useIsValidPassword } from '@/components/forms/validation.ts'
+import { useIsValidPassword, useIsValidPhone } from './validation';
 
 const showPassword = ref<Boolean>(false);
 const passwordField = ref<String>('');
@@ -82,7 +82,7 @@ const v = useVuelidate(rules, { phoneField })
     <div class="forgot-password">
         <router-link color="white" to="/profile">
           <span>
-            Забыли пароль? 
+            Забыли пароль? {{ authStore.getUser }}
           </span>
         </router-link>
     </div>

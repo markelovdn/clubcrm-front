@@ -7,8 +7,8 @@
 </template>
 
 <script setup>
-import BaseSpinner from '@/components/ui/BaseSpinner.vue';
-import BaseButton from '@/components/ui/BaseButton.vue';
+import BaseSpinner from '../components/ui/BaseSpinner.vue';
+import BaseButton from '../components/ui/BaseButton.vue';
 
 import { ref } from 'vue';
 

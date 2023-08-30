@@ -6,7 +6,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
-    component: () => import(/* webpackChunkName: "home" */ '@/pages/TheIndex.vue'),
+    component: () => import(/* webpackChunkName: "home" */ '../pages/TheIndex.vue'),
     meta: {
       layout: 'Hero',
     },
@@ -15,7 +15,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/about',
     name: 'About',
     component: () =>
-      import('@/pages/TheAbout.vue'),
+      import('../pages/TheAbout.vue'),
     meta: {
       layout: 'Register',
     },
@@ -25,7 +25,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/profile',
     name: 'Profile',
     component: () =>
-      import('@/pages/TheProfile.vue'),
+      import('../pages/TheProfile.vue'),
     meta: {
       layout: 'Cabinet',
     },
@@ -35,7 +35,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/button',
     name: 'Button',
     component: () =>
-      import('@/pages/ui/Button.vue'),
+      import('../pages/ui/Button.vue'),
     meta: {
       layout: 'Cabinet',
     },
@@ -45,7 +45,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/input',
     name: 'Input',
     component: () =>
-      import('@/pages/ui/Input.vue'),
+      import('../pages/ui/Input.vue'),
     meta: {
       layout: 'Cabinet',
     },
@@ -55,22 +55,22 @@ const routes: Array<RouteRecordRaw> = [
 export default routes;
 
 // import { createRouter, createWebHistory } from 'vue-router';
-// import Hero from '@/layouts/HeroLayout.vue';
-// import Radiobutton from '@/pages/ui/Radiobutton.vue';
-// import Progress from '@/pages/ui/Progress.vue';
-// import Input from '@/pages/ui/Input.vue';
-// import Select from '@/pages/ui/Select.vue';
-// import Tabs from '@/pages/ui/Tabs.vue';
-// import Table from '@/pages/ui/Table.vue';
-// import Upload from '@/pages/ui/Upload.vue';
-// import Modal from '@/pages/ui/Modal.vue';
-// import Label from '@/pages/ui/Label.vue';
-// import Accordion from '@/pages/ui/Accordion.vue';
-// import Card from '@/pages/ui/Card.vue';
-// import Lightbox from '@/pages/ui/Lightbox.vue';
-// import Images from '@/pages/ui/Images.vue';
-// import Notification from '@/pages/ui/Notification.vue';
-// import Spinner from '@/pages/ui/Spinner.vue';
+// import Hero from '../layouts/HeroLayout.vue';
+// import Radiobutton from '../pages/ui/Radiobutton.vue';
+// import Progress from '../pages/ui/Progress.vue';
+// import Input from '../pages/ui/Input.vue';
+// import Select from '../pages/ui/Select.vue';
+// import Tabs from '../pages/ui/Tabs.vue';
+// import Table from '../pages/ui/Table.vue';
+// import Upload from '../pages/ui/Upload.vue';
+// import Modal from '../pages/ui/Modal.vue';
+// import Label from '../pages/ui/Label.vue';
+// import Accordion from '../pages/ui/Accordion.vue';
+// import Card from '../pages/ui/Card.vue';
+// import Lightbox from '../pages/ui/Lightbox.vue';
+// import Images from '../pages/ui/Images.vue';
+// import Notification from '../pages/ui/Notification.vue';
+// import Spinner from '../pages/ui/Spinner.vue';
 
 
 // // TODO: почитай про https://router.vuejs.org/guide/advanced/lazy-loading.html возможно, что разумнее где-то будет использовать
@@ -90,24 +90,24 @@ export default routes;
 //       path: '/button',
 //       name: 'Button',
 //       components: {
-//         default: () => import('@/pages/ui/Button.vue'),
-//         HeroLayout: () => import('@/layouts/HeroLayout.vue'),
+//         default: () => import('../pages/ui/Button.vue'),
+//         HeroLayout: () => import('../layouts/HeroLayout.vue'),
 //       },
 //     },
 //     {
 //       path: '/typography',
 //       name: 'Typography',
 //       components: {
-//         default: () => import('@/pages/ui/Typography.vue'),
-//         HeroLayout: () => import('@/layouts/AuthLayout.vue'),
+//         default: () => import('../pages/ui/Typography.vue'),
+//         HeroLayout: () => import('../layouts/AuthLayout.vue'),
 //       },
 //     },
 //     {
 //       path: '/checkbox',
 //       name: 'Checkbox',
 //       components: {
-//         default: () => import('@/pages/ui/Checkbox.vue'),
-//         HeroLayout: () => import('@/layouts/CabinetLayout.vue'),
+//         default: () => import('../pages/ui/Checkbox.vue'),
+//         HeroLayout: () => import('../layouts/CabinetLayout.vue'),
 //       },
 //     },
 //     {

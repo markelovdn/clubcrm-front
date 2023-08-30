@@ -8,9 +8,7 @@ export const useAuthStore = defineStore('auth', {
     }),
 
     getters: {
-        getUser(state){
-            return state.user
-          },
+        getUser: (state) => state.user,
     },
 
     actions: {
@@ -21,8 +19,8 @@ export const useAuthStore = defineStore('auth', {
               }).then((response) => {
                 localStorage.setItem('token', response.data.access_token)
                 this.user = response.data.user;
-                // console.log(response.data.user)
-                window.location.replace("/profile")
+                console.log(response.data.user)
+                // window.location.replace("/profile")
 
               }).catch((errors) => {
                 this.errors = errors.response;

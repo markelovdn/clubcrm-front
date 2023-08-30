@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import { computed, onMounted } from 'vue'
-import { useAuthStore } from '@/store/auth';
+// import { computed } from 'vue'
+import { useAuthStore } from '../store/auth';
 
 const authStore = useAuthStore()
 
-const getUser = computed(() => {
-  return authStore.getUser;
-});
+// const getUser = computed(() => {
+//   return authStore.getUser;
+// });
 
-onMounted(() => {
-  authStore.loginUser();
-});
+// onMounted(() => {
+//   authStore.loginUser();
+// });
 
 // path: src/views/Profile.vue
 </script>

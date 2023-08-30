@@ -18,7 +18,7 @@
 
 <script setup>
 import {ref} from 'vue'
-import BaseTabs from '@/components/ui/BaseTabs.vue'
+import BaseTabs from '../components/ui/BaseTabs.vue'
 
 const tabs = [
   {name: 'About', label: 'О проекте'},

@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import BaseLabel from '@/components/ui/BaseLabel.vue'
+import BaseLabel from '../components/ui/BaseLabel.vue'
 </script>
 
 <style scoped lang="scss">

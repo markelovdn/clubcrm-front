@@ -49,14 +49,14 @@
   </form>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 // TODO: логику с валидацией инпутов (напр. useFieldValidation) можно вытащить в Composables https://vuejs.org/guide/reusability/composables.html. Да там и не только инпуты валидировать можно, но и любые другие компоненты, работающие с данными (Select, Checkbox, ...)
 import { ref, computed } from 'vue'
 import useVuelidate from '@vuelidate/core'
 import {helpers, minLength, maxLength, numeric, email, sameAs} from '@vuelidate/validators'
 
-import BaseInput from '@/components/ui/BaseInput.vue'
-import BaseButton from '@/components/ui/BaseButton.vue'
+import BaseInput from '../components/ui/BaseInput.vue'
+import BaseButton from '../components/ui/BaseButton.vue'
 
 const nameField = ref('')
 const emailField = ref('')
@@ -65,7 +65,7 @@ const passwordField = ref('')
 const confirmPasswordField = ref('')
 const frontendField = ref('')
 
-const mustBeFrontend = (value) => value.includes('frontend')
+const mustBeFrontend = (v: string) => v.includes('frontend')
 
 const rules = computed(() => ({
   nameField: {

@@ -2,7 +2,8 @@
 // Path: src\layouts\HeroLayout.vue
 
 import { defineComponent } from "vue";
-
+import BaseButton from '../components/ui/BaseButton.vue';
+import LoginForm from "../components/forms/LoginForm.vue"
 export default defineComponent({
     name: "HeroLayout",
 });
@@ -10,18 +11,16 @@ export default defineComponent({
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import BaseButton from '@/components/ui/BaseButton.vue'
-import LoginForm from '@/components/forms/LoginForm.vue'
 const show_form = ref(false);
 </script>
 
 <template>
-<!-- <div :class="['hero-overlay', {show_form: show_form}]"></div> -->
+<div :class="['hero-overlay', {show_form: show_form}]"></div>
 <div 
 :class="['hero-container', {show_form: show_form}]" 
 style="background: url('/taekwondo-bg.jpg') center center/cover no-repeat">
   <div :class="['hero-container__logo', {show_form: show_form}]">
-      <img :class="['img', {show_form: show_form}]" src="@/assets/img/legion_1.png" >
+      <img :class="['img', {show_form: show_form}]" src="../assets/img/legion_1.png" >
     </div>
 <div class="hero-container__text">
       <span :class="{hide: show_form}">
@@ -41,7 +40,7 @@ style="background: url('/taekwondo-bg.jpg') center center/cover no-repeat">
 </div>
 <div :class="['login-form', {show: show_form}]">
   <span>asd</span>  
-  <!-- <LoginForm /> -->
+  <LoginForm />
 </div>
 </template>
 

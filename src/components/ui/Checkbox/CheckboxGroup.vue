@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import BaseCheckbox from '@/components/ui/Checkbox/BaseCheckbox.vue'
+import BaseCheckbox from '../components/ui/Checkbox/BaseCheckbox.vue'
 
 const emit = defineEmits(['update:value'])
 const props = defineProps({
