@@ -1,5 +1,5 @@
 {
-  "name": "clubcrm_front",
+  "name": "clubcrm__front",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -45,7 +45,7 @@
     "@vue/eslint-config-typescript": "^11.0.3",
     "@vue/test-utils": "^2.4.1",
     "@vue/tsconfig": "^0.4.0",
-    "cypress": "^13.6.4",
+    "cypress": "^12.17.4",
     "eslint": "^8.50.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-typescript": "^3.6.1",
@@ -56,7 +56,8 @@
     "jsdom": "^22.1.0",
     "npm-run-all": "^4.1.5",
     "prettier": "3.0.3",
-    "sass": "~1.32.12",
+    "sass": "^1.33.0",
+    "sass-loader": "12.0.0",
     "start-server-and-test": "^2.0.0",
     "stylelint": "^15.10.3",
     "stylelint-config-html": "^1.1.0",
