@@ -1,23 +1,32 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from "vue-router";
+
+import { useScrollControl } from "@/hooks/useScrollControl";
+import routes from "@/router/routes";
+import { useAuthStore } from "@/stores/authStore";
+import notify from "@/utils/notify";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+  history: createWebHistory(),
+  routes,
+});
+router.afterEach((to) => {
+  const { scrollToElement, scrollToTop } = useScrollControl();
+  setTimeout(() => {
+    if (to.hash) {
+      scrollToElement(to.hash);
+    } else {
+      scrollToTop();
     }
-  ]
-})
-
-export default router
+  }, 100);
+});
+router.beforeEach(async (to, from, next) => {
+  const { user } = useAuthStore();
+  document.title = (to.meta.title as string) || "ClubCRM";
+  if ((to.meta.requireAuth === undefined || to.meta.requireAuth === true) && !user) {
+    notify({ type: "negative", message: "Для доступа к этой странице необходима авторизация" });
+    next({ name: "Main" });
+  } else {
+    next();
+  }
+});
+export default router;
