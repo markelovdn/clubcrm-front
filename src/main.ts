@@ -9,13 +9,13 @@ import rus from "quasar/lang/ru";
 import { createApp } from "vue";
 
 import App from "./App.vue";
-import useAppInit from "./hooks/useAppInit";
+// import useAppInit from "./hooks/useAppInit";
 import router from "./router";
 
 const app = createApp(App);
 
 app.use(createPinia().use(piniaPluginPersistedstate));
-useAppInit();
+// useAppInit();
 
 app.use(router);
 app.use(Quasar, {
