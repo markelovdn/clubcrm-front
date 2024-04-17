@@ -100,6 +100,10 @@ export const useAuthStore = defineStore(
         return Promise.reject(err);
       }
     }
+
+    function test() {
+      return authApi.test().then((res) => res.data);
+    }
     const getUserInfo = computed(() => user.value);
     const getUserId = computed(() => user.value?.id);
     const isLoggedIn = computed(() => user.value && token.value);
@@ -115,6 +119,7 @@ export const useAuthStore = defineStore(
       isLoggedIn,
       resetPassword,
       getUserId,
+      test,
     };
   },
   {

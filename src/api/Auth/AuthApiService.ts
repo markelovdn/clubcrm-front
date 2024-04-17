@@ -56,4 +56,8 @@ export class AuthApiService {
       resetToken: resetToken,
     });
   }
+
+  test() {
+    return axios.get("/test");
+  }
 }

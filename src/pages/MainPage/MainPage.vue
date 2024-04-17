@@ -1,23 +1,24 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
-import axios from "@/common/axios";
+import { useAuthStore } from "@/stores/authStore";
 
+const authStore = useAuthStore();
 const testServer = ref<string>("");
-const test = async () => {
-  return await axios.get("/test").then((res) => {
-    console.log(res.data.message);
-    testServer.value = res.data.message;
-    return res.data.message;
-  });
-};
 
-test();
+authStore.test().then((res) => (testServer.value = res.message));
+
+const fullURL = ref("");
+
+onMounted(() => {
+  fullURL.value = window.location.href;
+});
 </script>
 
 <template>
   <div class="main-container">
     {{ testServer }}
+    {{ fullURL }}
   </div>
 </template>
 
