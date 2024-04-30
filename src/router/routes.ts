@@ -12,6 +12,17 @@ const routes: Array<RouteRecordRaw> = [
       footer: true,
     },
   },
+  {
+    path: "/ui",
+    name: "UI",
+    component: () => import("@/pages/UIPage.vue"),
+    meta: {
+      background: "primary",
+      requireAuth: false,
+      title: "Главная",
+      footer: true,
+    },
+  },
 ];
 
 export default routes;

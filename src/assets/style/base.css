@@ -1,37 +1,39 @@
 :root {
-  --q-background-primary: #fff;
-  --q-background-secondary: #f3f3f3;
-  --q-blue-lighter: #315194;
-  --text-color: #525252;
+  --background: #f3f3f3;
+  --background-card: #e3effb;
+  --q-blue-lighter: #0070f0;
+  --text-color: #212121;
   --yellow: #f7b70b;
+  --red: #dd0000;
+  --green: #00dd00;
   --black: #313131;
-  --grey-1: #a3a3a3;
-  --grey-2: #bababa;
-  --light-grey: #f1f1f1;
-  --maxContentWidth: 1280px;
-  --background-table: #fcfcfc;
-  --error: #dd0000;
-  --background-card: #f5f5f5;
+  --white: #fff;
+  --mobile-max-width: 720px;
+  --mobile-min-width: 320px;
+  --border-radius: 12px;
 }
 a {
   text-decoration: none;
   color: var(--q-blue-lighter);
+  transition: all 0.3s;
 }
 html {
   scroll-behavior: smooth;
 }
 body {
-  font-family: "Ubuntu";
-  font-style: normal;
-  line-height: 120%;
-  font-weight: 500;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 16px;
 }
 
 .q-btn {
-  text-transform: inherit;
   border-radius: 10px;
-  line-height: 1.15;
-  height: 48px;
+}
+
+.q-field__control {
+  border-radius: 12px !important;
+  background-color: var(--white);
+  font-size: 16px;
 }
 
 .q-btn--form {
@@ -50,45 +52,16 @@ body {
   font-size: 16px;
 }
 
+h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin: 0;
+}
+
 h2 {
-  font-weight: 700;
-  font-size: 42px;
-  line-height: 120%;
-  margin: 0;
-}
-
-h4 {
-  font-weight: 700;
-  font-size: 30px;
-  line-height: 39px;
-  text-align: center;
-  margin: 0;
-}
-h5 {
-  color: var(--black, #313131);
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 120%;
-  margin: 0;
-}
-.subtitle {
-  font-size: 14px;
+  font-size: 36px;
   font-weight: 500;
-  line-height: 16px;
-}
-
-.gap-1 {
-  gap: 4px;
-}
-.gap-2 {
-  gap: 8px;
-}
-.gap-3 {
-  gap: 16px;
-}
-
-a {
-  transition: all 0.3s;
+  margin: 0;
 }
 
 ::-webkit-scrollbar {
