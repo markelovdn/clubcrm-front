@@ -22,8 +22,22 @@ app.use(Quasar, {
   plugins: {
     Dialog,
     Notify,
-  }, // import Quasar plugins and add here
+  },
   lang: rus,
+  config: {
+    brand: {
+      primary: "#315194",
+      secondary: "#7F97CA",
+      accent: "#313194",
+      yellow: "#F7B70B",
+      dark: "#424242",
+      positive: "#21BA45",
+      negative: "#C10015",
+      info: "#e0e0e0",
+      warning: "#F2C037",
+      backgroundPage: "#fffae1",
+    },
+  },
 });
 
 app.mount("#app");

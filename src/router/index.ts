@@ -1,9 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+import { checkAccessByRoles, ensureUserIsLoggedIn, requireAuthentication } from "@/hooks/useAuth";
 import { useScrollControl } from "@/hooks/useScrollControl";
 import routes from "@/router/routes";
-import { useAuthStore } from "@/stores/authStore";
-import notify from "@/utils/notify";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -19,14 +18,14 @@ router.afterEach((to) => {
     }
   }, 100);
 });
+
 router.beforeEach(async (to, from, next) => {
-  const { user } = useAuthStore();
-  document.title = (to.meta.title as string) || "СОЦИАЛЬНО-ПСИХОЛОГИЧЕСКИЙ ЦЕНТР ВГСПУ";
-  if ((to.meta.requireAuth === undefined || to.meta.requireAuth === true) && !user) {
-    notify({ type: "negative", message: "Для доступа к этой странице необходима авторизация" });
-    next({ name: "Main" });
-  } else {
-    next();
-  }
+  document.title = (to.meta.title as string) || "CLubCRM";
+  await ensureUserIsLoggedIn(to, next);
+
+  if (!requireAuthentication(to, next)) return;
+
+  if (!checkAccessByRoles(to, next)) return;
 });
+
 export default router;

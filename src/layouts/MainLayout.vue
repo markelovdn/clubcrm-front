@@ -1,65 +1,46 @@
 <script setup lang="ts">
-import { getCssVar } from "quasar";
 import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-const pageBackground = computed(() => {
-  const backgroundName = (route?.meta?.background ?? "secondary") as string;
 
-  return { background: getCssVar(`background-${backgroundName}`) };
-});
-// const showHeaderOnRoute = computed(() => route.meta.footer);
-
-const leftDrawerOpen = ref(false);
 const rightDrawerOpen = ref(false);
-const toggleLeftDrawer = () => {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
-};
 const toggleRightDrawer = () => {
   rightDrawerOpen.value = !rightDrawerOpen.value;
 };
+
+const showHeaderOnRoute = computed(() => route.meta.header);
+const showFooterOnRoute = computed(() => route.meta.footer);
 </script>
 
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header reveal elevated class="bg-primary text-white">
+    <q-header v-if="showHeaderOnRoute !== false" reveal elevated>
       <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
-
         <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
+          <q-avatar square>
+            <q-img src="@/assets/img/logo_1.png" />
           </q-avatar>
-          Title
+          СК Легион
         </q-toolbar-title>
 
         <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" side="left" overlay behavior="mobile" elevated>
-      <!-- drawer content -->
-    </q-drawer>
-
     <q-drawer v-model="rightDrawerOpen" side="right" overlay behavior="mobile" elevated>
       <!-- drawer content -->
     </q-drawer>
 
-    <q-page-container class="wrapper" :style="pageBackground">
-      <q-page class="wrapper__content">
+    <q-page-container class="wrapper">
+      <div class="wrapper__content">
         <router-view />
-      </q-page>
+      </div>
     </q-page-container>
 
-    <q-footer reveal elevated class="bg-grey-8 text-white">
+    <q-footer v-if="showFooterOnRoute !== false" reveal elevated class="bg-grey-8 text-white">
       <q-toolbar>
-        <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
-          </q-avatar>
-          <div>Title</div>
-        </q-toolbar-title>
+        <q-toolbar-title></q-toolbar-title>
       </q-toolbar>
     </q-footer>
   </q-layout>
@@ -70,15 +51,12 @@ const toggleRightDrawer = () => {
   overflow-x: hidden;
 
   &__content {
-    width: var(--maxContentWidth);
-    margin: 0 auto;
-    padding: 70px 0;
-
+    padding: 20px 20px 20px 20px;
     @media (max-width: 1270px) {
       width: 100%;
     }
 
-    @media screen and (max-width: $mobile-max-width) {
+    @media screen and (max-width: 970px) {
       width: 100%;
       padding: 20px 4px 0px 10px;
       overflow-x: hidden;
