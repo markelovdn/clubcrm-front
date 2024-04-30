@@ -1,13 +1,15 @@
 :root {
-  --background: #f3f3f3;
+  --primary: "#315194";
+  --secondary: "#7F97CA";
+  --accent: "#9C27B0";
+  --yellow: "#F7B70B";
+  --dark: "#424242";
+  --positive: "#21BA45";
+  --negative: "#C10015";
+  --info: "#e0e0e0";
+  --warning: "#F2C037";
+  --background-page: #fffae1;
   --background-card: #e3effb;
-  --q-blue-lighter: #0070f0;
-  --text-color: #212121;
-  --yellow: #f7b70b;
-  --red: #dd0000;
-  --green: #00dd00;
-  --black: #313131;
-  --white: #fff;
   --mobile-max-width: 720px;
   --mobile-min-width: 320px;
   --border-radius: 12px;
@@ -27,6 +29,7 @@ body {
 }
 
 .q-btn {
+  height: 56px;
   border-radius: 10px;
 }
 
@@ -59,7 +62,7 @@ h1 {
 }
 
 h2 {
-  font-size: 36px;
+  font-size: 24px;
   font-weight: 500;
   margin: 0;
 }

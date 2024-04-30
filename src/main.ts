@@ -28,13 +28,14 @@ app.use(Quasar, {
     brand: {
       primary: "#315194",
       secondary: "#7F97CA",
-      accent: "#9C27B0",
+      accent: "#313194",
       yellow: "#F7B70B",
       dark: "#424242",
       positive: "#21BA45",
       negative: "#C10015",
       info: "#e0e0e0",
       warning: "#F2C037",
+      backgroundPage: "#fffae1",
     },
   },
 });

@@ -1,28 +1,28 @@
 import type { RouteRecordRaw } from "vue-router";
 
-const routes: Array<RouteRecordRaw> = [
+import authRoutes from "./authRoutes";
+import { MyRouteMeta } from "./types";
+
+const routes: Array<RouteRecordRaw & { meta: MyRouteMeta }> = [
   {
     path: "/",
     name: "Main",
     component: () => import("@/pages/MainPage/MainPage.vue"),
     meta: {
-      background: "primary",
-      requireAuth: false,
       title: "Главная",
-      footer: true,
     },
   },
+
   {
-    path: "/ui",
+    path: "/UI",
     name: "UI",
     component: () => import("@/pages/UIPage.vue"),
     meta: {
-      background: "primary",
-      requireAuth: false,
-      title: "Главная",
-      footer: true,
+      title: "UI",
     },
   },
 ];
 
-export default routes;
+const allRoutes = routes.concat(authRoutes);
+
+export default allRoutes;
