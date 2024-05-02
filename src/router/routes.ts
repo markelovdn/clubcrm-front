@@ -10,6 +10,7 @@ const routes: Array<RouteRecordRaw & { meta: MyRouteMeta }> = [
     component: () => import("@/pages/MainPage/MainPage.vue"),
     meta: {
       title: "Главная",
+      requireAuth: true,
     },
   },
 
@@ -19,6 +20,15 @@ const routes: Array<RouteRecordRaw & { meta: MyRouteMeta }> = [
     component: () => import("@/pages/UIPage.vue"),
     meta: {
       title: "UI",
+    },
+  },
+
+  {
+    path: "/:catchAll(.*)*",
+    name: "NotFound",
+    component: () => import("@/pages/NotFounPage.vue"),
+    meta: {
+      title: "Страница не найдена",
     },
   },
 ];

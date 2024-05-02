@@ -12,6 +12,7 @@ const fullURL = ref("");
 
 onMounted(() => {
   fullURL.value = window.location.href;
+  authStore.requestUserInfo();
 });
 </script>
 
@@ -19,6 +20,7 @@ onMounted(() => {
   <div class="main-container">
     {{ testServer }}
     {{ fullURL }}
+    {{ authStore.user }}
   </div>
   <RouterLink to="/ui">UI</RouterLink>
 </template>

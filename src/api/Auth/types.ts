@@ -11,20 +11,18 @@ export type TRegistrationPayload = {
 };
 
 export type TLoginArgs = {
-  email: string;
+  phone: string;
   password: string;
 };
 
 export type TUser = {
   id: number;
-  email: string;
-  fullName: string;
   firstName: string;
   secondName: string;
-  surName: string;
+  middleName: string;
+  fullName: string;
+  email: string;
   phone: string;
-  role: TUserRole;
-  ragionId: number;
 };
 
 export type TUserRole = {
@@ -35,7 +33,7 @@ export type TUserRole = {
 
 export type TLoginResponse = {
   token: string;
-  userData: TUser;
+  user: TUser;
 };
 
 export interface TRegistrationResponse extends TLoginResponse {

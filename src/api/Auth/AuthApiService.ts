@@ -8,17 +8,19 @@ import type {
 } from "@/api/Auth/types";
 import axios from "@/common/axios";
 export class AuthApiService {
-  login({ email, password }: TLoginArgs) {
-    return axios.post<TLoginResponse>("/login", {
-      email,
+  login({ phone, password }: TLoginArgs) {
+    return axios.post<TLoginResponse>("/login?XDEBUG_SESSION=VSCODE", {
+      phone,
       password,
     });
   }
 
+  getAuthUser() {
+    return axios.get("/user?XDEBUG_SESSION=VSCODE");
+  }
+
   logout() {
-    return axios.post("/logout", {
-      headers: { "Access-Control-Allow-Origin": "*" },
-    });
+    return axios.post("/logout?XDEBUG_SESSION=VSCODE");
   }
 
   registration(data: TRegistrationPayload) {
@@ -35,12 +37,6 @@ export class AuthApiService {
       password: data.password,
       roleCode: data.roleCode,
       regionId: data.regionId,
-    });
-  }
-
-  getUserInfo() {
-    return axios.get("/getUserByToken", {
-      headers: { "Access-Control-Allow-Origin": "*" },
     });
   }
 
