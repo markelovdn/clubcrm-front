@@ -1,36 +1,23 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { useRoute } from "vue-router";
+import { ref } from "vue";
 
-const route = useRoute();
+import RightSidebar from "@/components/common/RightSidebar/RightSidebar.vue";
+import TheFooter from "@/components/common/TheFooter/TheFooter.vue";
+import TheHeader from "@/components/common/TheHeader/TheHeader.vue";
 
 const rightDrawerOpen = ref(false);
 const toggleRightDrawer = () => {
   rightDrawerOpen.value = !rightDrawerOpen.value;
 };
-
-const showHeaderOnRoute = computed(() => route.meta.header);
-const showFooterOnRoute = computed(() => route.meta.footer);
 </script>
 
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header v-if="showHeaderOnRoute !== false" reveal elevated>
-      <q-toolbar>
-        <q-toolbar-title>
-          <q-avatar square>
-            <q-img src="@/assets/img/logo_1.png" />
-          </q-avatar>
-          СК Легион
-        </q-toolbar-title>
-
-        <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
-      </q-toolbar>
-    </q-header>
-
-    <q-drawer v-model="rightDrawerOpen" side="right" overlay behavior="mobile" elevated>
-      <!-- drawer content -->
-    </q-drawer>
+    <TheHeader @toggle-sidebar="toggleRightDrawer" />
+    <RightSidebar
+      :right-drawer-open="rightDrawerOpen"
+      @update:right-drawer-open="rightDrawerOpen = $event"
+      @click="rightDrawerOpen = false" />
 
     <q-page-container class="wrapper">
       <div class="wrapper__content">
@@ -38,11 +25,7 @@ const showFooterOnRoute = computed(() => route.meta.footer);
       </div>
     </q-page-container>
 
-    <q-footer v-if="showFooterOnRoute !== false" reveal elevated class="bg-grey-8 text-white">
-      <q-toolbar>
-        <q-toolbar-title></q-toolbar-title>
-      </q-toolbar>
-    </q-footer>
+    <TheFooter @toggle-sidebar="toggleRightDrawer" />
   </q-layout>
 </template>
 

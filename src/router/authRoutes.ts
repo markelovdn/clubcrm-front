@@ -8,7 +8,6 @@ const authRoutes: Array<RouteRecordRaw & { meta: MyRouteMeta }> = [
     name: "Login",
     component: () => import("@/pages/LoginPage/LoginPage.vue"),
     meta: {
-      requireAuth: false,
       title: "Логин",
       header: false,
       footer: false,
@@ -20,7 +19,6 @@ const authRoutes: Array<RouteRecordRaw & { meta: MyRouteMeta }> = [
     name: "ResetPassword",
     component: () => import("@/pages/ResetPasswordPage/ResetPasswordPage.vue"),
     meta: {
-      requireAuth: false,
       title: "Сбросить пароль",
       header: false,
     },

@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import { checkAccessByRoles, ensureUserIsLoggedIn, requireAuthentication } from "@/hooks/useAuth";
+// import { checkAccessByRoles, requireAuthentication } from "@/hooks/useAuth";
 import { useScrollControl } from "@/hooks/useScrollControl";
 import routes from "@/router/routes";
+import notify from "@/utils/notify";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -20,12 +21,14 @@ router.afterEach((to) => {
 });
 
 router.beforeEach(async (to, from, next) => {
-  document.title = (to.meta.title as string) || "CLubCRM";
-  await ensureUserIsLoggedIn(to, next);
+  document.title = to.meta.title ? `${to.meta.title}` : "ClubCRM";
+  const token = localStorage.getItem("token");
 
-  if (!requireAuthentication(to, next)) return;
-
-  if (!checkAccessByRoles(to, next)) return;
+  if (!token && to.meta.requireAuth) {
+    notify({ type: "negative", message: "Для доступа к этой странице необходима авторизация" });
+    next({ name: "Login" });
+  } else {
+    next();
+  }
 });
-
 export default router;

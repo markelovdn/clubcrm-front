@@ -1,13 +1,13 @@
 :root {
-  --primary: "#315194";
-  --secondary: "#7F97CA";
-  --accent: "#9C27B0";
-  --yellow: "#F7B70B";
-  --dark: "#424242";
-  --positive: "#21BA45";
-  --negative: "#C10015";
-  --info: "#e0e0e0";
-  --warning: "#F2C037";
+  --primary: #315194;
+  --secondary: #7f97ca;
+  --accent: #9c27b0;
+  --yellow: #f7b70b;
+  --dark: #424242;
+  --positive: #21ba45;
+  --negative: #c10015;
+  --info: #e0e0e0;
+  --warning: #f2c037;
   --background-page: #fffae1;
   --background-card: #e3effb;
   --mobile-max-width: 720px;

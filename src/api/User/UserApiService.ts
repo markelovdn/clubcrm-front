@@ -1,11 +1,5 @@
 import axios from "@/common/axios";
 export class UserApiService {
-  getUserInfo() {
-    return axios.get("/getUserByToken", {
-      headers: { "Access-Control-Allow-Origin": "*" },
-    });
-  }
-
   createUser(data: any) {
     return axios.post("/users", data);
   }

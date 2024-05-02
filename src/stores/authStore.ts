@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { parse, stringify } from "zipson";
@@ -15,10 +16,12 @@ export const useAuthStore = defineStore(
 
     function requestUserInfo() {
       return authApi
-        .getUserInfo()
-        .then((res) => setUser(res.data.userData))
+        .getAuthUser()
+        .then((res) => {
+          setUser(res.data);
+        })
         .catch((err) => {
-          console.log(err);
+          throw err;
         });
     }
 
@@ -29,14 +32,14 @@ export const useAuthStore = defineStore(
     async function login(payload: TLoginArgs) {
       try {
         const resp = await authApi.login(payload);
-        //TODO: манипуляции с токеном в отдельный composable
         localStorage.setItem("token", resp.data.token);
         token.value = resp.data.token;
-        //TODO: инфу о пользователе получать с отдельного запроса
-        setUser(resp.data.userData);
+        setUser(resp.data.user);
         return Promise.resolve(resp.data);
-      } catch (err) {
-        console.log(err);
+      } catch (err: unknown) {
+        if (err instanceof AxiosError && err.response) {
+          notify({ type: "negative", message: String(err.response.data.errors.auth) });
+        }
         return Promise.reject(err);
       }
     }
@@ -45,7 +48,7 @@ export const useAuthStore = defineStore(
         const resp = await authApi.registration(payload);
         localStorage.setItem("token", resp.data.token);
         token.value = resp.data.token;
-        setUser(resp.data.userData);
+        setUser(resp.data.user);
         return Promise.resolve(resp.data);
       } catch (err) {
         console.log(err);
@@ -53,18 +56,17 @@ export const useAuthStore = defineStore(
       }
     }
     async function logout() {
-      try {
-        if (localStorage.getItem("token")) {
-          await authApi.logout();
-        }
-        localStorage.removeItem("token");
-        user.value = undefined;
-        socketConnection.disconnect();
-        return Promise.resolve();
-      } catch (err) {
-        console.log(err);
-        return Promise.reject(err);
-      }
+      authApi
+        .logout()
+        .then((res) => {
+          localStorage.removeItem("token");
+          user.value = undefined;
+          socketConnection.disconnect();
+          notify({ type: "positive", message: res.data.message });
+        })
+        .catch(() => {
+          localStorage.removeItem("token");
+        });
     }
     async function forgotPassword(payload: TForgotPasswordArgs) {
       try {

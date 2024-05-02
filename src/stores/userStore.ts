@@ -8,17 +8,6 @@ import notify from "@/utils/notify";
 export const useUserStore = defineStore("userStore", () => {
   const user = ref<TUser>();
 
-  async function requestUserInfo() {
-    try {
-      const res = await userApi.getUserInfo();
-      setUser(res.data.userData);
-      return res;
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
-  }
-
   function setUser(data: TUser) {
     user.value = data;
   }
@@ -72,7 +61,6 @@ export const useUserStore = defineStore("userStore", () => {
   };
 
   return {
-    requestUserInfo,
     createUser,
     updateUserInfo,
     deleteUser,
