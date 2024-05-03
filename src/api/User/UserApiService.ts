@@ -1,11 +1,11 @@
-import axios from "@/common/axios";
-export class UserApiService {
+import { BaseApi } from "@/api/BaseApi";
+export class UserApiService extends BaseApi {
   createUser(data: any) {
-    return axios.post("/users", data);
+    return this.post("/users", data);
   }
 
   updateUserInfo(data: any, userId?: number) {
-    return axios.put(`/users/${userId}`, {
+    return this.put(`/users/${userId}`, {
       firstName: data.firstName,
       secondName: data.secondName,
       middleName: data.middleName,
@@ -16,9 +16,5 @@ export class UserApiService {
       companyName: data.companyName,
       userId: data.userId,
     });
-  }
-
-  deleteUser(userId: number) {
-    return axios.delete(`/users/${userId}`, { params: { userId: userId } });
   }
 }

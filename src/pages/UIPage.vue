@@ -1,10 +1,6 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 
-import { useAuthStore } from "@/stores/authStore";
-
-const authStore = useAuthStore();
-const testServer = ref<string>("");
 const alert = ref(false);
 const confirm = ref(false);
 const prompt = ref(false);
@@ -13,7 +9,6 @@ const shape = ref("line");
 const val = ref(0);
 const value = ref(true);
 const standard = ref(2);
-authStore.test().then((res) => (testServer.value = res.message));
 const name = ref("");
 const time = ref("");
 const lorem = ref("");
@@ -22,18 +17,10 @@ const days = ref("");
 const age = ref("");
 const expanded = ref(false);
 const accept = ref(false);
-
-const fullURL = ref("");
-
-onMounted(() => {
-  fullURL.value = window.location.href;
-});
 </script>
 
 <template>
   <div class="main-container">
-    {{ testServer }}
-    {{ fullURL }}
     <h1>Заголовок</h1>
     <h2>Подзаголовок</h2>
     <p>

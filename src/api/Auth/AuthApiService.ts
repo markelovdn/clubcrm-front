@@ -1,59 +1,32 @@
-import type {
-  TForgotPasswordArgs,
-  TLoginArgs,
-  TLoginResponse,
-  TRegistrationPayload,
-  TRegistrationResponse,
-  TResetPasswordArgs,
-} from "@/api/Auth/types";
-import axios from "@/common/axios";
-export class AuthApiService {
+import type { TForgotPasswordArgs, TLoginArgs, TResetPasswordArgs } from "@/api/Auth/types";
+import { BaseApi } from "@/api/BaseApi";
+export class AuthApiService extends BaseApi {
   login({ phone, password }: TLoginArgs) {
-    return axios.post<TLoginResponse>("/login?XDEBUG_SESSION=VSCODE", {
-      phone,
-      password,
-    });
+    return this.post("/login", { phone, password });
   }
 
   getAuthUser() {
-    return axios.get("/user?XDEBUG_SESSION=VSCODE");
+    return this.get("/user");
   }
 
   logout() {
-    return axios.post("/logout?XDEBUG_SESSION=VSCODE");
-  }
-
-  registration(data: TRegistrationPayload) {
-    const splitName: Array<string> = data.name.split(" ");
-
-    return axios.post<TRegistrationResponse>("/register", {
-      firstName: splitName[1],
-      secondName: splitName[0],
-      patronymic: splitName[2],
-      phone: data.phone,
-      email: data.email,
-      specializationId: data.specializationId,
-      professionId: data.professionId,
-      password: data.password,
-      roleCode: data.roleCode,
-      regionId: data.regionId,
-    });
+    return this.post("/logout");
   }
 
   forgotPassword({ email }: TForgotPasswordArgs) {
-    return axios.post<TForgotPasswordArgs>("/forgotPassword", {
+    return this.post("/forgotPassword", {
       email: email,
     });
   }
 
   resetPassword({ password, resetToken }: TResetPasswordArgs) {
-    return axios.post<TResetPasswordArgs>("/resetPassword", {
+    return this.post("/resetPassword", {
       password: password,
       resetToken: resetToken,
     });
   }
 
   test() {
-    return axios.get("/test");
+    return this.get("/test");
   }
 }

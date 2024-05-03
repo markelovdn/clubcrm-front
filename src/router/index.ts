@@ -3,7 +3,6 @@ import { createRouter, createWebHistory } from "vue-router";
 // import { checkAccessByRoles, requireAuthentication } from "@/hooks/useAuth";
 import { useScrollControl } from "@/hooks/useScrollControl";
 import routes from "@/router/routes";
-import notify from "@/utils/notify";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -25,7 +24,6 @@ router.beforeEach(async (to, from, next) => {
   const token = localStorage.getItem("token");
 
   if (!token && to.meta.requireAuth) {
-    notify({ type: "negative", message: "Для доступа к этой странице необходима авторизация" });
     next({ name: "Login" });
   } else {
     next();

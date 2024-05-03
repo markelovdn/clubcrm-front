@@ -1,10 +1,9 @@
-import { AxiosError } from "axios";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { parse, stringify } from "zipson";
 
 import { authApi } from "@/api";
-import { TForgotPasswordArgs, TLoginArgs, TRegistrationPayload, TResetPasswordArgs, TUser } from "@/api/Auth/types";
+import { TForgotPasswordArgs, TLoginArgs, TResetPasswordArgs, TUser } from "@/api/Auth/types";
 import { socketConnection } from "@/common/socket";
 import notify from "@/utils/notify";
 
@@ -12,16 +11,16 @@ export const useAuthStore = defineStore(
   "authStore",
   () => {
     const token = ref<null | string>(localStorage.token ?? null);
-    const user = ref<TUser>();
+    const user = ref<TUser | null>(null);
 
     function requestUserInfo() {
       return authApi
         .getAuthUser()
         .then((res) => {
-          setUser(res.data);
+          setUser(res);
         })
         .catch((err) => {
-          throw err;
+          console.error("Error fetching user info:", err);
         });
     }
 
@@ -30,39 +29,38 @@ export const useAuthStore = defineStore(
     }
 
     async function login(payload: TLoginArgs) {
-      try {
-        const resp = await authApi.login(payload);
-        localStorage.setItem("token", resp.data.token);
-        token.value = resp.data.token;
-        setUser(resp.data.user);
-        return Promise.resolve(resp.data);
-      } catch (err: unknown) {
-        if (err instanceof AxiosError && err.response) {
-          notify({ type: "negative", message: String(err.response.data.errors.auth) });
-        }
-        return Promise.reject(err);
-      }
+      await authApi
+        .login(payload)
+        .then((resp) => {
+          localStorage.setItem("token", resp.token);
+          token.value = resp.token;
+          setUser(resp.user);
+        })
+        .catch((error) => {
+          notify({ type: "negative", message: error.response.data.errors.auth });
+        });
     }
-    async function registration(payload: TRegistrationPayload) {
-      try {
-        const resp = await authApi.registration(payload);
-        localStorage.setItem("token", resp.data.token);
-        token.value = resp.data.token;
-        setUser(resp.data.user);
-        return Promise.resolve(resp.data);
-      } catch (err) {
-        console.log(err);
-        return Promise.reject(err);
-      }
-    }
-    async function logout() {
+
+    // async function registration(payload: TRegistrationPayload) {
+    //   try {
+    //     const resp = await authApi.registration(payload);
+    //     localStorage.setItem("token", resp.data.token);
+    //     token.value = resp.data.token;
+    //     setUser(resp.data.user);
+    //     return Promise.resolve(resp.data);
+    //   } catch (err) {
+    //     console.log(err);
+    //     return Promise.reject(err);
+    //   }
+    // }
+    function logout() {
       authApi
         .logout()
         .then((res) => {
           localStorage.removeItem("token");
-          user.value = undefined;
+          user.value = null;
           socketConnection.disconnect();
-          notify({ type: "positive", message: res.data.message });
+          notify({ type: "positive", message: res.message });
         })
         .catch(() => {
           localStorage.removeItem("token");
@@ -103,9 +101,6 @@ export const useAuthStore = defineStore(
       }
     }
 
-    function test() {
-      return authApi.test().then((res) => res.data);
-    }
     const getUserInfo = computed(() => user.value);
     const getUserId = computed(() => user.value?.id);
     const isLoggedIn = computed(() => user.value && token.value);
@@ -113,7 +108,6 @@ export const useAuthStore = defineStore(
       forgotPassword,
       token,
       login,
-      registration,
       requestUserInfo,
       user,
       getUserInfo,
@@ -121,7 +115,6 @@ export const useAuthStore = defineStore(
       isLoggedIn,
       resetPassword,
       getUserId,
-      test,
     };
   },
   {
