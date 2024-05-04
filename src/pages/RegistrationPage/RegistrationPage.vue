@@ -1,33 +1,32 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { computed, onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 
+import { TRegistrationPayload } from "@/api/Auth/types";
 import logoUrl from "@/assets/img/logo_lt_legion34.png";
-import ForgotPasswordModal from "@/components/Modals/ForgotPasswordModal/ForgotPasswordModal.vue";
-import { requiredValidator, useValidation } from "@/hooks/useValidation";
+import { emailValidator, minLengthValidator, requiredValidator, useValidation } from "@/hooks/useValidation";
 import { useAuthStore } from "@/stores/authStore";
 
-import { TLoginPayload } from "./types";
-
-const data = ref<TLoginPayload>({
+const data = ref<TRegistrationPayload>({
   phone: "",
+  email: "",
   password: "",
+  subDomain: "",
 });
 
 const emit = defineEmits(["close", "validation-change"]);
 
-const { handleBlur, getErrorAttrs, isValid } = useValidation<TLoginPayload>(data, emit, {
-  phone: { requiredValidator },
+const { handleBlur, getErrorAttrs, isValid } = useValidation<TRegistrationPayload>(data, emit, {
+  phone: { requiredValidator, minLengthValidator: minLengthValidator(18) },
+  email: { requiredValidator, emailValidator },
   password: { requiredValidator },
+  subDomain: { requiredValidator },
 });
 
 const isPwd = ref(true);
-const showModalForgotPassword = ref(false);
 
 const router = useRouter();
-const route = useRoute();
 const authStore = useAuthStore();
-const showLoginError = ref(false);
 
 const phoneInput = computed({
   get() {
@@ -41,30 +40,27 @@ const phoneInput = computed({
   },
 });
 
-const onLoginSuccess = () => {
-  router.push({ name: "Main", query: { ...route.query } });
-};
-const onLoginFail = () => (showLoginError.value = true);
-
-const handleLogin = () => {
-  authStore
-    .login({
-      phone: data.value.phone,
-      password: data.value.password,
-    })
-    .then(onLoginSuccess, onLoginFail);
+const handleRegistration = async () => {
+  await authStore.registration(data.value);
+  router.push({ name: "Main" });
 };
 
-const registration = () => {
-  router.push({ name: "Registration" });
-};
+onMounted(() => {
+  const hostname = window.location.hostname;
+  const parts = hostname.split(".");
+  if (parts.length >= 3) {
+    data.value.subDomain = parts[0];
+  } else {
+    data.value.subDomain = "null";
+  }
+});
 </script>
 
 <template>
   <div class="main-container absolute-center">
     <div class="login-form__container">
       <q-img class="logo" :src="logoUrl" fit="contain" height="100px" />
-      <q-form class="q-mb-sm" @keydown.enter="handleLogin">
+      <q-form class="q-mb-sm" @keydown.enter="handleRegistration">
         <q-input
           v-bind="getErrorAttrs('phone')"
           v-model="phoneInput"
@@ -73,6 +69,14 @@ const registration = () => {
           mask="+7 (###) ###-##-##"
           borderless
           @blur="handleBlur('phone')" />
+
+        <q-input
+          v-bind="getErrorAttrs('email')"
+          v-model="data.email"
+          outlined
+          label="Email*"
+          borderless
+          @blur="handleBlur('email')" />
 
         <q-input
           v-bind="getErrorAttrs('password')"
@@ -88,17 +92,9 @@ const registration = () => {
         </q-input>
       </q-form>
       <div class="row no-wrap q-mt-md q-mb-md">
-        <q-btn label="Войти" :disable="!isValid" class="q-btn--form" color="accent" @click="handleLogin" />
-      </div>
-
-      <div class="row no-wrap q-mt-md q-mb-md refresh-password__text" @click="showModalForgotPassword = true">
-        <span>Восстановить пароль</span>
-      </div>
-      <div class="row no-wrap q-mt-md q-mb-md refresh-password__text" @click="registration">
-        <span>Зарегистрироваться</span>
+        <q-btn label="Зарегистрироваться" :disable="!isValid" color="accent" @click="handleRegistration" />
       </div>
     </div>
-    <ForgotPasswordModal v-if="showModalForgotPassword" @close="showModalForgotPassword = false" />
   </div>
 </template>
 

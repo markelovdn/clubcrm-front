@@ -53,7 +53,7 @@ const position: ComputedRef<"left" | "right" | "bottom" | "top" | "standard"> = 
 <style lang="scss" scoped>
 .dialog-card {
   padding: 35px;
-  background-color: var(--background-page);
+  background-color: var(--info);
   overflow-y: auto;
   overflow-x: hidden;
   border-radius: 12px;
