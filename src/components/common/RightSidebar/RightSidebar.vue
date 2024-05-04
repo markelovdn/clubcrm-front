@@ -12,10 +12,9 @@ const props = defineProps({
 });
 
 const logout = () => {
-  authStore.logout().finally(() => {
-    emit("update:rightDrawerOpen", false); // Сначала закрываем сайдбар
-    router.push({ name: "Login" }); // Затем переходим на страницу логина
-  });
+  authStore.logout();
+  emit("update:rightDrawerOpen", false);
+  router.push({ name: "Login" });
 };
 
 const emit = defineEmits(["update:rightDrawerOpen"]);

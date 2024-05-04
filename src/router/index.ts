@@ -25,7 +25,10 @@ router.beforeEach(async (to, from, next) => {
   const token = localStorage.getItem("token");
 
   if (!token && to.meta.requireAuth) {
-    notify({ type: "negative", message: "Для доступа к этой странице необходима авторизация" });
+    notify({
+      type: "negative",
+      message: "Необходима повторная авторизация",
+    });
     next({ name: "Login" });
   } else {
     next();

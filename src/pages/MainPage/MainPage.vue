@@ -1,28 +1,27 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
+import { TUser } from "@/api/Auth/types";
 import { useAuthStore } from "@/stores/authStore";
 
 const authStore = useAuthStore();
-const testServer = ref<string>("");
+const user = ref<TUser | null>(null);
 
-authStore.test().then((res) => (testServer.value = res.message));
-
-const fullURL = ref("");
-
-onMounted(() => {
-  fullURL.value = window.location.href;
-  authStore.requestUserInfo();
+onMounted(async () => {
+  await authStore.requestUserInfo();
+  user.value = authStore.user;
 });
 </script>
 
 <template>
   <div class="main-container">
-    {{ testServer }}
-    {{ fullURL }}
-    {{ authStore.user }}
+    <span v-if="!user?.id">Загрузка...</span>
+    <div>{{ user }}</div>
   </div>
-  <RouterLink to="/ui">UI</RouterLink>
+  <div>
+    <RouterLink to="/ui">Страница UI элементов</RouterLink>
+  </div>
+  <q-btn label="Запрос данных пользователя" color="primary" @click="authStore.requestUserInfo()" />
 </template>
 
 <style scoped>
