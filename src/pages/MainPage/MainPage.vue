@@ -1,33 +1,27 @@
 <script setup lang="ts">
-import { onMounted, watchEffect } from "vue";
+import { onMounted, ref } from "vue";
 
+import { TUser } from "@/api/Auth/types";
 import { useAuthStore } from "@/stores/authStore";
 
-const { user, requestUserInfo } = useAuthStore();
-
-watchEffect(() => {
-  console.log("Текущее значение user:", user);
-});
+const authStore = useAuthStore();
+const user = ref<TUser | null>(null);
 
 onMounted(async () => {
-  console.log("Компонент смонтирован");
-  console.log("Текущее значение user:", user); // Используйте user.value
-  if (user === null) {
-    // Проверьте user.value на null
-    console.log("Запрос начал выполняться");
-    await requestUserInfo().then(() => {
-      console.log("Текущее значение user:", user);
-    });
-  }
+  await authStore.requestUserInfo();
+  user.value = authStore.user;
 });
 </script>
 
 <template>
   <div class="main-container">
-    <div v-if="user">{{ user }}</div>
+    <span v-if="!user?.id">Загрузка...</span>
+    <div>{{ user }}</div>
   </div>
-  <RouterLink to="/ui">UI</RouterLink>
-  <q-btn label="Alert" color="primary" @click="requestUserInfo()" />
+  <div>
+    <RouterLink to="/ui">Страница UI элементов</RouterLink>
+  </div>
+  <q-btn label="Запрос данных пользователя" color="primary" @click="authStore.requestUserInfo()" />
 </template>
 
 <style scoped>

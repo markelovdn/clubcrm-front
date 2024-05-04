@@ -51,37 +51,37 @@ export class BaseApi {
       (error) => {
         const status = error.response?.status;
         const unauthorizedStatuses = [401, 403];
-        if (unauthorizedStatuses.includes(status)) {
-          notify({ type: "negative", message: error.response.data.error });
+        if (unauthorizedStatuses.includes(status) && window.location.pathname !== "/login") {
           console.log(error.response.data.message);
-
-          if (window.location.pathname !== "/login") {
-            setTimeout(() => {
-              localStorage.removeItem("token");
-              window.location.href = "/login";
-            }, 1500);
-          }
+          //Использовал window.location так как router вызывал ошибку цикличность ссылок;
+          localStorage.removeItem("token");
+          window.location.href = "/login";
         }
+        notify({ type: "negative", message: error.response.data.error });
 
         return Promise.reject(error);
       },
     );
   }
 
-  async request(method: "get" | "post" | "put" | "delete", url: string, data = null) {
+  request(method: "get" | "post" | "put" | "delete", url: string, data = null) {
     url += this.xdebugSession;
     this.$loading.value = true;
-    try {
-      const response = await this.axiosInstance({ method, url, data });
-      return response.data;
-    } catch (error: any) {
-      this.$error.value = true;
-      this.$message.value = error.message || "An error occurred";
-      this.$code.value = error.response ? error.response.status : "500";
-      throw error;
-    } finally {
-      this.$loading.value = false;
-    }
+    return this.axiosInstance({ method, url, data })
+      .then((response) => {
+        console.log({ ...response.data });
+        return response.data;
+      })
+      .catch((error) => {
+        console.log({ ...error });
+        this.$error.value = true;
+        this.$message.value = error.message || "An error occurred";
+        this.$code.value = error.response ? error.response.status : "500";
+        throw error;
+      })
+      .finally(() => {
+        this.$loading.value = false;
+      });
   }
 
   get(url: string) {

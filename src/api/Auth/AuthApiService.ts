@@ -1,6 +1,9 @@
-import type { TForgotPasswordArgs, TLoginArgs, TResetPasswordArgs } from "@/api/Auth/types";
+import type { TForgotPasswordArgs, TLoginArgs, TRegistrationPayload, TResetPasswordArgs } from "@/api/Auth/types";
 import { BaseApi } from "@/api/BaseApi";
 export class AuthApiService extends BaseApi {
+  registration(data: TRegistrationPayload) {
+    return this.post("/registration", data);
+  }
   login({ phone, password }: TLoginArgs) {
     return this.post("/login", { phone, password });
   }
@@ -24,9 +27,5 @@ export class AuthApiService extends BaseApi {
       password: password,
       resetToken: resetToken,
     });
-  }
-
-  test() {
-    return this.get("/test");
   }
 }

@@ -1,13 +1,8 @@
 export type TRegistrationPayload = {
-  name: string;
   phone: string;
   email: string;
-  specializationId?: number | null;
-  professionId?: number | null;
   password: string;
   passwordConfirm?: string;
-  roleCode: string;
-  regionId?: number | null;
 };
 
 export type TLoginArgs = {
