@@ -37,6 +37,7 @@ const handleResetPassword = () => {
     <div class="password-reset__wrapper absolute-center">
       <div class="header">
         <h4>Сбросить пароль</h4>
+        {{ route.params.resetToken }}
       </div>
       <q-form class="fit q-sm form">
         <q-input

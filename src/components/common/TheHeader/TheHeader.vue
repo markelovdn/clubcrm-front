@@ -41,7 +41,7 @@ const iconColor = computed(() => {
     <q-toolbar>
       <q-toolbar-title>
         <q-avatar square @click="router.push({ name: 'Main' })">
-          <q-img src="@/assets/img/logo_1.png" />
+          <q-img src="@/assets/img/logo_dt_legion34.png" />
         </q-avatar>
         СК Легион
       </q-toolbar-title>

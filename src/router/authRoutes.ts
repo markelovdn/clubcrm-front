@@ -12,6 +12,30 @@ const authRoutes: Array<RouteRecordRaw & { meta: MyRouteMeta }> = [
       header: false,
       footer: false,
     },
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem("token") !== null) {
+        next({ name: "Main" });
+      } else {
+        next();
+      }
+    },
+  },
+  {
+    path: "/registration",
+    name: "Registration",
+    component: () => import("@/pages/RegistrationPage/RegistrationPage.vue"),
+    meta: {
+      title: "Регистрация",
+      header: false,
+      footer: false,
+    },
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem("token") !== null) {
+        next({ name: "Main" });
+      } else {
+        next();
+      }
+    },
   },
 
   {

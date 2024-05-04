@@ -2,7 +2,7 @@ export type TRegistrationPayload = {
   phone: string;
   email: string;
   password: string;
-  passwordConfirm?: string;
+  subDomain: string;
 };
 
 export type TLoginArgs = {

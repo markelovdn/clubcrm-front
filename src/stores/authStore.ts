@@ -35,24 +35,20 @@ export const useAuthStore = defineStore("authStore", () => {
 
   function registration(payload: TRegistrationPayload) {
     return authApi.registration(payload).then((resp) => {
-      localStorage.setItem("token", resp.data.token);
-      token.value = resp.data.token;
-      setUser(resp.data.user);
+      localStorage.setItem("token", resp.token);
+      token.value = resp.token;
+      setUser(resp.user);
     });
   }
 
   function logout() {
-    authApi
-      .logout()
-      .then((res) => {
-        localStorage.removeItem("token");
-        user.value = null;
-        socketConnection.disconnect();
-        notify({ type: "positive", message: res.message });
-      })
-      .catch(() => {
-        localStorage.removeItem("token");
-      });
+    return authApi.logout().finally(() => {
+      localStorage.removeItem("token");
+      user.value = null;
+      socketConnection.disconnect();
+      //использовал window.location так как router вызывал ошибку цикличность ссылок;
+      window.location.href = "/login";
+    });
   }
 
   function forgotPassword(payload: TForgotPasswordArgs) {

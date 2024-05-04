@@ -9,8 +9,7 @@ export type TRule<T> = ValidationArgs<T>;
 
 export const requiredValidator = helpers.withMessage("Обязательное поле", required);
 export const emailValidator = helpers.withMessage("Не верный формат email адреса", email);
-export const minLengthValidator = (length: number) =>
-  helpers.withMessage(`Количество символов должно быть не менее ${length}`, minLength(length));
+export const minLengthValidator = (length: number) => helpers.withMessage(`Не полные данные`, minLength(length));
 export const maxLengthValidator = (length: number) =>
   helpers.withMessage(`Длина строки не должна превышать ${length} символов`, maxLength(length));
 export const repeatPasswordValidator = (password: Ref<string> | ComputedRef<string>) =>
