@@ -7,13 +7,13 @@ import { useAuthStore } from "@/stores/authStore";
 
 import { TResetPasswordPayload } from "./types";
 
-const emit = defineEmits(["close"]);
+const emit = defineEmits(["close", "validation-change"]);
 const router = useRouter();
 const route = useRoute();
 const data = ref<TResetPasswordPayload>({
   password: "",
   passwordConfirm: "",
-  resetToken: route.params.resetToken as unknown as string,
+  resetToken: route.params.resetToken as string,
 });
 
 const authStore = useAuthStore();
@@ -35,16 +35,12 @@ const handleResetPassword = () => {
 <template>
   <div class="main-container">
     <div class="password-reset__wrapper absolute-center">
-      <div class="header">
-        <h4>Сбросить пароль</h4>
-        {{ route.params.resetToken }}
-      </div>
-      <q-form class="fit q-sm form">
+      <q-form class="q-sm form">
         <q-input
           v-bind="getErrorAttrs('password')"
           v-model="data.password"
           outlined
-          class="fit q-mb-sm"
+          class="q-mb-sm"
           label="Новый пароль*"
           aria-autocomplete="new-password"
           :type="isPwd ? 'password' : 'text'"
@@ -57,7 +53,7 @@ const handleResetPassword = () => {
         <q-input
           v-model="data.passwordConfirm"
           outlined
-          class="fit q-mb-sm"
+          class="q-mb-sm"
           label="Подтвердите пароль*"
           v-bind="getErrorAttrs('passwordConfirm')"
           aria-autocomplete="new-password"
@@ -67,12 +63,11 @@ const handleResetPassword = () => {
             <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="isPwd = !isPwd" />
           </template>
         </q-input>
-        <div class="fit q-mb-sm">
+        <div class="q-mb-sm">
           <q-btn
-            label="Отправить"
+            label="Изменить пароль"
             :disable="!isValid"
-            class="fit q-btn--form q-mt-md"
-            size="lg"
+            class="full-width q-mt-md"
             color="primary"
             @click="handleResetPassword" />
         </div>
@@ -96,7 +91,6 @@ const handleResetPassword = () => {
   flex-direction: column;
   padding: 20px;
   width: 350px;
-  background-color: var(--background-card);
   color: var(--text-color);
   border-radius: var(--border-radius);
 

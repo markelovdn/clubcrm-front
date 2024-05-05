@@ -34,11 +34,27 @@ export const useAuthStore = defineStore("authStore", () => {
   }
 
   function registration(payload: TRegistrationPayload) {
-    return authApi.registration(payload).then((resp) => {
-      localStorage.setItem("token", resp.token);
-      token.value = resp.token;
-      setUser(resp.user);
-    });
+    return authApi
+      .registration(payload)
+      .then((resp) => {
+        localStorage.setItem("token", resp.token);
+        token.value = resp.token;
+        setUser(resp.user);
+      })
+      .catch((error) => {
+        const errors = error?.response?.data?.errors;
+        if (errors) {
+          Object.keys(errors).forEach((key) => {
+            if (errors[key]) {
+              notify({ type: "negative", message: errors[key] });
+            }
+          });
+        } else {
+          notify({ type: "negative", message: "An unknown error occurred." });
+        }
+
+        throw error;
+      });
   }
 
   function logout() {

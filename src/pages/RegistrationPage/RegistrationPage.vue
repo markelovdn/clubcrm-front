@@ -6,6 +6,7 @@ import { TRegistrationPayload } from "@/api/Auth/types";
 import logoUrl from "@/assets/img/logo_lt_legion34.png";
 import { emailValidator, minLengthValidator, requiredValidator, useValidation } from "@/hooks/useValidation";
 import { useAuthStore } from "@/stores/authStore";
+import notify from "@/utils/notify";
 
 const data = ref<TRegistrationPayload>({
   phone: "",
@@ -27,6 +28,7 @@ const isPwd = ref(true);
 
 const router = useRouter();
 const authStore = useAuthStore();
+const isRegistrationError = ref(false);
 
 const phoneInput = computed({
   get() {
@@ -40,9 +42,18 @@ const phoneInput = computed({
   },
 });
 
-const handleRegistration = async () => {
-  await authStore.registration(data.value);
+const onRegistrationSuccess = () => {
   router.push({ name: "Main" });
+  notify({ type: "positive", message: "Вы успешно зарегистрировались!" });
+};
+
+const handleRegistration = async () => {
+  await authStore
+    .registration(data.value)
+    .then(onRegistrationSuccess)
+    .catch(() => {
+      isRegistrationError.value = true;
+    });
 };
 
 onMounted(() => {
@@ -93,6 +104,16 @@ onMounted(() => {
       </q-form>
       <div class="row no-wrap q-mt-md q-mb-md">
         <q-btn label="Зарегистрироваться" :disable="!isValid" color="accent" @click="handleRegistration" />
+      </div>
+
+      <div class="row no-wrap q-mt-md q-mb-md">
+        <q-btn
+          v-if="isRegistrationError"
+          label="Войти"
+          :disable="!isValid"
+          flat
+          class="q-btn--form"
+          @click="router.push({ name: 'Login' })" />
       </div>
     </div>
   </div>

@@ -91,12 +91,8 @@ const registration = () => {
         <q-btn label="Войти" :disable="!isValid" class="q-btn--form" color="accent" @click="handleLogin" />
       </div>
 
-      <div class="row no-wrap q-mt-md q-mb-md refresh-password__text" @click="showModalForgotPassword = true">
-        <span>Восстановить пароль</span>
-      </div>
-      <div class="row no-wrap q-mt-md q-mb-md refresh-password__text" @click="registration">
-        <span>Зарегистрироваться</span>
-      </div>
+      <q-btn label="Не помню логин или пароль?" flat class="q-mt-md" @click="showModalForgotPassword = true"></q-btn>
+      <q-btn label="Зарегистрироваться" flat class="q-mt-md" @click="registration"></q-btn>
     </div>
     <ForgotPasswordModal v-if="showModalForgotPassword" @close="showModalForgotPassword = false" />
   </div>

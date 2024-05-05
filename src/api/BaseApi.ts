@@ -1,8 +1,6 @@
 import axios from "axios";
 import { ref } from "vue";
 
-import notify from "@/utils/notify";
-
 function getAuthHeader() {
   const token = localStorage.getItem("token");
   if (token) {
@@ -38,7 +36,7 @@ export class BaseApi {
         headers: { ...config.headers, ...getAuthHeader() },
       }),
       (error) => {
-        notify({ type: "negative", message: "Не удалось запросить данные" });
+        console.log(error);
         return Promise.reject(error);
       },
     );
@@ -57,7 +55,7 @@ export class BaseApi {
           localStorage.removeItem("token");
           window.location.href = "/login";
         }
-        notify({ type: "negative", message: error.response.data.error });
+        console.log(error);
 
         return Promise.reject(error);
       },
@@ -67,6 +65,7 @@ export class BaseApi {
   request(method: "get" | "post" | "put" | "delete", url: string, data = null) {
     url += this.xdebugSession;
     this.$loading.value = true;
+    console.log({ data });
     return this.axiosInstance({ method, url, data })
       .then((response) => {
         console.log({ ...response.data });
