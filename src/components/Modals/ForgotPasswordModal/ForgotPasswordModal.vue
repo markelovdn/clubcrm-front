@@ -45,14 +45,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <ModalWrapper close-button-header @close="closeModal({ force: true })">
-    <p>Новый пароль будет выслан на почту</p>
+  <ModalWrapper close-button-header header="Восстановление пароля" @close="closeModal({ force: true })">
     <q-form class="q-mb-sm" @keydown.enter="handleForgotPassword">
       <q-input
         v-bind="getErrorAttrs('email')"
         v-model="data.email"
         outlined
-        class="q-mb-sm"
+        class="q-mb-sm q-mt-md"
         label="Почта*"
         borderless
         @blur="handleBlur('email')" />

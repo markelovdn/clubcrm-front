@@ -45,6 +45,7 @@ const authRoutes: Array<RouteRecordRaw & { meta: MyRouteMeta }> = [
     meta: {
       title: "Сбросить пароль",
       header: false,
+      footer: false,
     },
   },
 ];
