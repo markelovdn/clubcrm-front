@@ -2,14 +2,14 @@
 import { onMounted, ref } from "vue";
 
 import { TUser } from "@/api/Auth/types";
-import { useAuthStore } from "@/stores/authStore";
+import { useUserStore } from "@/stores/userStore";
 
-const authStore = useAuthStore();
-const user = ref<TUser | null>(null);
+const userStore = useUserStore();
+const user = ref<TUser | undefined>(undefined);
 
 onMounted(async () => {
-  await authStore.requestUserInfo();
-  user.value = authStore.user;
+  await userStore.requestUserInfo();
+  user.value = userStore.user;
 });
 </script>
 
@@ -21,7 +21,7 @@ onMounted(async () => {
   <div>
     <RouterLink to="/ui">Страница UI элементов</RouterLink>
   </div>
-  <q-btn label="Запрос данных пользователя" color="primary" @click="authStore.requestUserInfo()" />
+  <q-btn label="Запрос данных пользователя" color="primary" @click="userStore.requestUserInfo()" />
 </template>
 
 <style scoped>

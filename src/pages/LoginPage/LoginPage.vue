@@ -6,6 +6,7 @@ import logoUrl from "@/assets/img/logo_lt_legion34.png";
 import ForgotPasswordModal from "@/components/Modals/ForgotPasswordModal/ForgotPasswordModal.vue";
 import { requiredValidator, useValidation } from "@/hooks/useValidation";
 import { useAuthStore } from "@/stores/authStore";
+import { useBaseStore } from "@/stores/baseStore";
 
 import { TLoginPayload } from "./types";
 
@@ -27,6 +28,7 @@ const showModalForgotPassword = ref(false);
 const router = useRouter();
 const route = useRoute();
 const authStore = useAuthStore();
+const baseStore = useBaseStore();
 const showLoginError = ref(false);
 
 const phoneInput = computed({
@@ -64,7 +66,7 @@ const registration = () => {
   <div class="main-container absolute-center">
     <div class="login-form__container">
       <q-img class="logo" :src="logoUrl" fit="contain" height="100px" />
-      <q-form class="q-mb-sm" @keydown.enter="handleLogin">
+      <q-form class="q-mb-sm" @keydown.enter="handleLogin" @submit.prevent="handleLogin">
         <q-input
           v-bind="getErrorAttrs('phone')"
           v-model="phoneInput"
@@ -88,7 +90,17 @@ const registration = () => {
         </q-input>
       </q-form>
       <div class="row no-wrap q-mt-md q-mb-md">
-        <q-btn label="Войти" :disable="!isValid" class="q-btn--form" color="accent" @click="handleLogin" />
+        <q-btn
+          label="Войти"
+          :disable="!isValid"
+          class="q-btn--form"
+          color="primary"
+          :loading="baseStore.isLoading"
+          @click="handleLogin">
+          <template #loading>
+            <q-spinner-dots color="white" size="2em" />
+          </template>
+        </q-btn>
       </div>
 
       <q-btn label="Не помню логин или пароль?" flat class="q-mt-md" @click="showModalForgotPassword = true"></q-btn>

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+import { messages } from "@/common/messages";
 // import { checkAccessByRoles, requireAuthentication } from "@/hooks/useAuth";
 import { useScrollControl } from "@/hooks/useScrollControl";
 import routes from "@/router/routes";
@@ -27,7 +28,7 @@ router.beforeEach(async (to, from, next) => {
   if (!token && to.meta.requireAuth) {
     notify({
       type: "negative",
-      message: "Необходима повторная авторизация",
+      message: messages.authorizationRequired,
     });
     next({ name: "Login" });
   } else {

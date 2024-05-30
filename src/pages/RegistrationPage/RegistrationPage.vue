@@ -4,27 +4,27 @@ import { useRouter } from "vue-router";
 
 import { TRegistrationPayload } from "@/api/Auth/types";
 import logoUrl from "@/assets/img/logo_lt_legion34.png";
+import { messages } from "@/common/messages";
 import { emailValidator, minLengthValidator, requiredValidator, useValidation } from "@/hooks/useValidation";
 import { useAuthStore } from "@/stores/authStore";
+import { useBaseStore } from "@/stores/baseStore";
 import notify from "@/utils/notify";
 
 const data = ref<TRegistrationPayload>({
   phone: "",
   email: "",
-  password: "",
   subDomain: "",
 });
+
+const baseStore = useBaseStore();
 
 const emit = defineEmits(["close", "validation-change"]);
 
 const { handleBlur, getErrorAttrs, isValid } = useValidation<TRegistrationPayload>(data, emit, {
   phone: { requiredValidator, minLengthValidator: minLengthValidator(18) },
   email: { requiredValidator, emailValidator },
-  password: { requiredValidator },
   subDomain: { requiredValidator },
 });
-
-const isPwd = ref(true);
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -44,7 +44,7 @@ const phoneInput = computed({
 
 const onRegistrationSuccess = () => {
   router.push({ name: "Main" });
-  notify({ type: "positive", message: "Вы успешно зарегистрировались!" });
+  notify({ type: "positive", message: messages.registrationSuccess, position: "top" });
 };
 
 const handleRegistration = async () => {
@@ -71,7 +71,7 @@ onMounted(() => {
   <div class="main-container absolute-center">
     <div class="login-form__container">
       <q-img class="logo" :src="logoUrl" fit="contain" height="100px" />
-      <q-form class="q-mb-sm" @keydown.enter="handleRegistration">
+      <q-form class="q-mb-sm" @keydown.enter="handleRegistration" @submit.prevent="handleRegistration">
         <q-input
           v-bind="getErrorAttrs('phone')"
           v-model="phoneInput"
@@ -88,29 +88,24 @@ onMounted(() => {
           label="Email*"
           borderless
           @blur="handleBlur('email')" />
-
-        <q-input
-          v-bind="getErrorAttrs('password')"
-          v-model="data.password"
-          outlined
-          label="Пароль*"
-          aria-autocomplete="current-password"
-          :type="isPwd ? 'password' : 'text'"
-          @blur="handleBlur('password')">
-          <template #append>
-            <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="isPwd = !isPwd" />
-          </template>
-        </q-input>
       </q-form>
       <div class="row no-wrap q-mt-md q-mb-md">
-        <q-btn label="Зарегистрироваться" :disable="!isValid" color="accent" @click="handleRegistration" />
+        <q-btn
+          :label="baseStore.isLoading ? '' : 'Зарегистрироваться'"
+          :disable="!isValid"
+          class="register-btn"
+          :loading="baseStore.isLoading"
+          @click="handleRegistration">
+          <template #loading>
+            <q-spinner-dots color="white" size="2em" />
+          </template>
+        </q-btn>
       </div>
 
       <div class="row no-wrap q-mt-md q-mb-md">
         <q-btn
           v-if="isRegistrationError"
           label="Войти"
-          :disable="!isValid"
           flat
           class="q-btn--form"
           @click="router.push({ name: 'Login' })" />
@@ -147,5 +142,14 @@ onMounted(() => {
 .refresh-password__text:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+
+.register-btn {
+  min-width: 201px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: var(--primary);
 }
 </style>

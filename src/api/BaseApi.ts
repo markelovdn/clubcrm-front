@@ -1,6 +1,8 @@
 import axios from "axios";
 import { ref } from "vue";
 
+import { useBaseStore } from "@/stores/baseStore";
+
 function getAuthHeader() {
   const token = localStorage.getItem("token");
   if (token) {
@@ -63,9 +65,10 @@ export class BaseApi {
   }
 
   request(method: "get" | "post" | "put" | "delete", url: string, data = null) {
+    const baseStore = useBaseStore();
+
     url += this.xdebugSession;
-    this.$loading.value = true;
-    console.log({ data });
+    baseStore.setLoading(true);
     return this.axiosInstance({ method, url, data })
       .then((response) => {
         console.log({ ...response.data });
@@ -79,7 +82,7 @@ export class BaseApi {
         throw error;
       })
       .finally(() => {
-        this.$loading.value = false;
+        baseStore.setLoading(false);
       });
   }
 
