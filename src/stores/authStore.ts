@@ -2,23 +2,16 @@ import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 
 import { authApi } from "@/api";
-import { TForgotPasswordArgs, TLoginArgs, TRegistrationPayload, TResetPasswordArgs, TUser } from "@/api/Auth/types";
+import { TForgotPasswordArgs, TLoginArgs, TRegistrationPayload, TResetPasswordArgs } from "@/api/Auth/types";
+import { messages } from "@/common/messages";
 import { socketConnection } from "@/common/socket";
 import notify from "@/utils/notify";
 
+import { useUserStore } from "./userStore";
+
 export const useAuthStore = defineStore("authStore", () => {
   const token = ref<null | string>(localStorage.token ?? null);
-  const user = ref<TUser | null>(null);
-
-  function requestUserInfo() {
-    return authApi.getAuthUser().then((res) => {
-      setUser(res);
-    });
-  }
-
-  function setUser(data: TUser) {
-    user.value = data;
-  }
+  const userStore = useUserStore();
 
   function login(payload: TLoginArgs) {
     return authApi
@@ -26,7 +19,8 @@ export const useAuthStore = defineStore("authStore", () => {
       .then((resp) => {
         localStorage.setItem("token", resp.token);
         token.value = resp.token;
-        setUser(resp.user);
+        console.log(resp.user);
+        userStore.setUser(resp.user);
       })
       .catch((error) => {
         notify({ type: "negative", message: error.response.data.errors.auth });
@@ -39,7 +33,7 @@ export const useAuthStore = defineStore("authStore", () => {
       .then((resp) => {
         localStorage.setItem("token", resp.token);
         token.value = resp.token;
-        setUser(resp.user);
+        userStore.setUser(resp.user);
       })
       .catch((error) => {
         const errors = error?.response?.data?.errors;
@@ -50,7 +44,7 @@ export const useAuthStore = defineStore("authStore", () => {
             }
           });
         } else {
-          notify({ type: "negative", message: "An unknown error occurred." });
+          notify({ type: "negative", message: messages.unknownError });
         }
 
         throw error;
@@ -60,7 +54,7 @@ export const useAuthStore = defineStore("authStore", () => {
   function logout() {
     return authApi.logout().finally(() => {
       localStorage.removeItem("token");
-      user.value = null;
+      userStore.unsetUser();
       socketConnection.disconnect();
       //использовал window.location так как router вызывал ошибку цикличность ссылок;
       window.location.href = "/login";
@@ -73,14 +67,15 @@ export const useAuthStore = defineStore("authStore", () => {
       .then(() => {
         notify({
           type: "positive",
-          message: "Ссылка для восстановления пароля отправлена на указанный email",
+          message: messages.forgotPasswordSuccess,
         });
       })
-      .catch(() => {
+      .catch((error) => {
         notify({
           type: "negative",
-          message: "Данный email не зарегистрирован, или ссылка для восстановления пароля уже отправлена",
+          message: messages.forgotPasswordError,
         });
+        throw error;
       });
   }
 
@@ -90,32 +85,26 @@ export const useAuthStore = defineStore("authStore", () => {
       .then(() => {
         notify({
           type: "positive",
-          message: "Пароль успешно изменен, войдите в личный кабинет",
+          message: messages.resetPasswordSuccess,
         });
       })
       .catch(() => {
         notify({
           type: "negative",
-          message: "Время действия ссылки для восстановления пароля истекло",
+          message: messages.resetPasswordError,
         });
       });
   }
 
-  const getUserInfo = computed(() => user.value);
-  const getUserId = computed(() => user.value?.id);
-  const isLoggedIn = computed(() => user.value && token.value);
+  const isLoggedIn = computed(() => token.value);
 
   return {
     forgotPassword,
     token,
     login,
-    requestUserInfo,
-    user,
-    getUserInfo,
     logout,
     isLoggedIn,
     resetPassword,
-    getUserId,
     registration,
   };
 });

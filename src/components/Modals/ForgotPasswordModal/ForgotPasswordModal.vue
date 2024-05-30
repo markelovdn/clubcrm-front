@@ -34,7 +34,7 @@ const { handleBlur, getErrorAttrs, isValid } = useValidation<TForgotPasswordPayl
 });
 
 const handleForgotPassword = () => {
-  authStore.forgotPassword({ email: data.value.email }).then(onForgotSuccess);
+  authStore.forgotPassword({ email: data.value.email }).then(onForgotSuccess).catch();
 };
 
 onMounted(() => {
@@ -46,7 +46,7 @@ onMounted(() => {
 
 <template>
   <ModalWrapper close-button-header header="Восстановление пароля" @close="closeModal({ force: true })">
-    <q-form class="q-mb-sm" @keydown.enter="handleForgotPassword">
+    <q-form class="q-mb-sm" @keydown.enter="handleForgotPassword" @submit.prevent="handleForgotPassword">
       <q-input
         v-bind="getErrorAttrs('email')"
         v-model="data.email"

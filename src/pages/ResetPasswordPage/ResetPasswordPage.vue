@@ -4,6 +4,7 @@ import { useRoute, useRouter } from "vue-router";
 
 import { repeatPasswordValidator, requiredValidator, useValidation } from "@/hooks/useValidation";
 import { useAuthStore } from "@/stores/authStore";
+import { useBaseStore } from "@/stores/baseStore";
 
 import { TResetPasswordPayload } from "./types";
 
@@ -17,6 +18,7 @@ const data = ref<TResetPasswordPayload>({
 });
 
 const authStore = useAuthStore();
+const baseStore = useBaseStore();
 const isPwd = ref(true);
 
 const { handleBlur, getErrorAttrs, isValid } = useValidation<TResetPasswordPayload>(data, emit, {
@@ -35,7 +37,7 @@ const handleResetPassword = () => {
 <template>
   <div class="main-container">
     <div class="password-reset__wrapper absolute-center">
-      <q-form class="q-sm form">
+      <q-form class="q-sm form" @keydown.enter="handleResetPassword" @submit.prevent="handleResetPassword">
         <q-input
           v-bind="getErrorAttrs('password')"
           v-model="data.password"
@@ -69,7 +71,12 @@ const handleResetPassword = () => {
             :disable="!isValid"
             class="full-width q-mt-md"
             color="primary"
-            @click="handleResetPassword" />
+            :loading="baseStore.isLoading"
+            @click="handleResetPassword">
+            <template #loading>
+              <q-spinner-dots color="white" size="2em" />
+            </template>
+          </q-btn>
         </div>
       </q-form>
     </div>

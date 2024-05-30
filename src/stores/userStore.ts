@@ -3,6 +3,7 @@ import { computed, ref } from "vue";
 
 import { userApi } from "@/api";
 import { TUser, TUserRole } from "@/api/User/types";
+import { messages } from "@/common/messages";
 import notify from "@/utils/notify";
 
 export const useUserStore = defineStore("userStore", () => {
@@ -12,11 +13,21 @@ export const useUserStore = defineStore("userStore", () => {
     user.value = data;
   }
 
+  function unsetUser() {
+    user.value = undefined;
+  }
+
+  function requestUserInfo() {
+    return userApi.getAuthUser().then((res) => {
+      setUser(res);
+    });
+  }
+
   async function createUser(data: any) {
     return userApi
       .createUser(data)
       .then(() => {
-        notify({ type: "positive", message: "Данные успешно сохранены" });
+        notify({ type: "positive", message: messages.successSaveData });
       })
       .catch((err) => {
         Object.values(err.response.data.errors.response.original.message).forEach((error) => {
@@ -36,8 +47,10 @@ export const useUserStore = defineStore("userStore", () => {
     createUser,
     user,
     setUser,
+    unsetUser,
     getUserInfo,
     getUserId,
     hasRole,
+    requestUserInfo,
   };
 });

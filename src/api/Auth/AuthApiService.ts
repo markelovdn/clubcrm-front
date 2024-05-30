@@ -8,10 +8,6 @@ export class AuthApiService extends BaseApi {
     return this.post("/login", { phone, password });
   }
 
-  getAuthUser() {
-    return this.get("/user");
-  }
-
   logout() {
     return this.post("/logout");
   }

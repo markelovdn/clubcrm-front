@@ -1,7 +1,6 @@
 export type TRegistrationPayload = {
   phone: string;
   email: string;
-  password: string;
   subDomain: string;
 };
 

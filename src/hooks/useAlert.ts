@@ -1,9 +1,10 @@
 import { Dialog } from "quasar";
 
+import { messages } from "@/common/messages";
 import type { AlertDialog } from "@/types";
 
 const getDefaultOptions = () => ({
-  title: "Вы уверены, что хотите продолжить?",
+  title: messages.confirmation,
   message: "Все изменения будут потеряны",
   persistent: true,
   ok: {
