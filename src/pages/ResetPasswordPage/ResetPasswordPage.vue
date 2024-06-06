@@ -37,7 +37,7 @@ const handleResetPassword = () => {
 <template>
   <div class="main-container">
     <div class="password-reset__wrapper absolute-center">
-      <q-form class="q-sm form" @keydown.enter="handleResetPassword" @submit.prevent="handleResetPassword">
+      <q-form class="q-sm form" @keydown.enter.prevent="handleResetPassword">
         <q-input
           v-bind="getErrorAttrs('password')"
           v-model="data.password"

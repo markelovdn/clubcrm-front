@@ -66,7 +66,7 @@ const registration = () => {
   <div class="main-container absolute-center">
     <div class="login-form__container">
       <q-img class="logo" :src="logoUrl" fit="contain" height="100px" />
-      <q-form class="q-mb-sm" @keydown.enter="handleLogin" @submit.prevent="handleLogin">
+      <q-form class="q-mb-sm" @keydown.enter.prevent="handleLogin">
         <q-input
           v-bind="getErrorAttrs('phone')"
           v-model="phoneInput"

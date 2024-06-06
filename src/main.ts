@@ -15,9 +15,12 @@ import router from "./router";
 const app = createApp(App);
 useAppInit();
 
-app.use(createPinia().use(piniaPluginPersistedstate));
-
 app.use(router);
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
+
+app.use(pinia);
+
 app.use(Quasar, {
   plugins: {
     Dialog,

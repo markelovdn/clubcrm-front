@@ -1,3 +1,5 @@
+import type { TUser } from "@/api/User/types";
+
 export type TRegistrationPayload = {
   phone: string;
   email: string;
@@ -7,22 +9,6 @@ export type TRegistrationPayload = {
 export type TLoginArgs = {
   phone: string;
   password: string;
-};
-
-export type TUser = {
-  id: number;
-  firstName: string;
-  secondName: string;
-  middleName: string;
-  fullName: string;
-  email: string;
-  phone: string;
-};
-
-export type TUserRole = {
-  id: number;
-  code: "parented" | "consultant" | string;
-  title: string;
 };
 
 export type TLoginResponse = {

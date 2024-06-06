@@ -2,6 +2,7 @@
 import { defineEmits, defineProps } from "vue";
 import { useRouter } from "vue-router";
 
+import RightMenu from "@/components/RightMenu/RightMenu.vue";
 import { useAuthStore } from "@/stores/authStore";
 
 const router = useRouter();
@@ -32,6 +33,7 @@ const handleModelValueUpdate = (newValue: boolean) => {
     class="sidebar-wrapper q-pa-lg"
     @update:model-value="handleModelValueUpdate($event)">
     <div class="content-wrapper">
+      <RightMenu @click="handleModelValueUpdate" />
       <div class="flex-spacer"></div>
       <q-btn flat icon="exit_to_app" label="Выход" class="logout-button" @click="logout" />
     </div>

@@ -17,10 +17,10 @@ export const useUserStore = defineStore("userStore", () => {
     user.value = undefined;
   }
 
-  function requestUserInfo() {
-    return userApi.getAuthUser().then((res) => {
-      setUser(res);
-    });
+  async function requestUserInfo() {
+    const res = await userApi.getAuthUser();
+    setUser(res);
+    return res;
   }
 
   async function createUser(data: any) {
@@ -37,9 +37,16 @@ export const useUserStore = defineStore("userStore", () => {
       });
   }
 
-  const getUserInfo = computed(() => user.value);
+  const getUserInfo = computed(() => {
+    return user.value;
+  });
   const getUserId = computed(() => user.value?.id);
-  const hasRole = (role: TUserRole["code"]): boolean => {
+
+  const hasRole = (role: TUserRole["code"] | "any"): boolean => {
+    if (role === "any" && user.value?.roles) {
+      console.log(user.value?.roles.length);
+      return user.value?.roles.length === 0 ?? true;
+    }
     return user.value?.roles.some((userRole) => userRole.code === role) ?? false;
   };
 

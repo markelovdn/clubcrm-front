@@ -15,13 +15,13 @@ const handleClick = () => {
   emit("toggleSidebar");
 };
 
-// const auth = () => {
-//   if (userStore.getUserInfo) {
-//     router.push({ name: "Profile" });
-//   } else {
-//     router.push({ name: "Login" });
-//   }
-// };
+const auth = () => {
+  if (userStore.getUserInfo) {
+    router.push({ name: "Profile" });
+  } else {
+    router.push({ name: "Login" });
+  }
+};
 
 // const iconColor = computed(() => {
 //   const roles = userStore.getUserInfo?.roles.map((role) => role.code);
@@ -46,9 +46,9 @@ const handleClick = () => {
         СК Легион
       </q-toolbar-title>
       <span>{{ userStore.getUserInfo?.fullName }}</span>
-      <!-- <q-btn flat round @click="auth()">
+      <q-btn flat round @click="auth()">
         <q-icon name="account_circle" :color="iconColor" />
-      </q-btn> -->
+      </q-btn>
 
       <q-btn dense flat round icon="menu" @click="handleClick" />
     </q-toolbar>
