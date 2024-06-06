@@ -9,4 +9,5 @@ export const messages = {
   resetPasswordSuccess: "Пароль успешно изменен, войдите в личный кабинет",
   resetPasswordError: "Время действия ссылки для восстановления пароля истекло",
   authorizationRequired: "Необходима повторная авторизация",
+  updateProfile: "Для полного доступа необходимо заполнить профиль пользователя",
 };

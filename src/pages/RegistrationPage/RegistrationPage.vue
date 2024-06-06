@@ -43,8 +43,8 @@ const phoneInput = computed({
 });
 
 const onRegistrationSuccess = () => {
-  router.push({ name: "Main" });
-  notify({ type: "positive", message: messages.registrationSuccess, position: "top" });
+  notify({ type: "positive", message: `${messages.registrationSuccess} ${messages.updateProfile}`, position: "top" });
+  router.push({ name: "Profile" });
 };
 
 const handleRegistration = async () => {
@@ -71,7 +71,7 @@ onMounted(() => {
   <div class="main-container absolute-center">
     <div class="login-form__container">
       <q-img class="logo" :src="logoUrl" fit="contain" height="100px" />
-      <q-form class="q-mb-sm" @keydown.enter="handleRegistration" @submit.prevent="handleRegistration">
+      <q-form class="q-mb-sm" @keydown.enter.prevent="handleRegistration">
         <q-input
           v-bind="getErrorAttrs('phone')"
           v-model="phoneInput"

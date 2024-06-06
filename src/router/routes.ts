@@ -1,7 +1,9 @@
 import type { RouteRecordRaw } from "vue-router";
 
 import authRoutes from "./authRoutes";
+import organizationRoutes from "./organizationRoutes";
 import { MyRouteMeta } from "./types";
+import userRoutes from "./userRoutes";
 
 const routes: Array<RouteRecordRaw & { meta: MyRouteMeta }> = [
   {
@@ -11,6 +13,7 @@ const routes: Array<RouteRecordRaw & { meta: MyRouteMeta }> = [
     meta: {
       title: "Главная",
       requireAuth: true,
+      anyRole: true,
     },
   },
 
@@ -33,6 +36,6 @@ const routes: Array<RouteRecordRaw & { meta: MyRouteMeta }> = [
   },
 ];
 
-const allRoutes = routes.concat(authRoutes);
+const allRoutes = routes.concat(authRoutes, userRoutes, organizationRoutes);
 
 export default allRoutes;

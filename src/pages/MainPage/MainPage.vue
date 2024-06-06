@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
-import { TUser } from "@/api/Auth/types";
+import { TUser } from "@/api/User/types";
 import { useUserStore } from "@/stores/userStore";
 
 const userStore = useUserStore();
@@ -9,7 +9,7 @@ const user = ref<TUser | undefined>(undefined);
 
 onMounted(async () => {
   await userStore.requestUserInfo();
-  user.value = userStore.user;
+  user.value = userStore.getUserInfo;
 });
 </script>
 

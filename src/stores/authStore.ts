@@ -4,7 +4,7 @@ import { computed, ref } from "vue";
 import { authApi } from "@/api";
 import { TForgotPasswordArgs, TLoginArgs, TRegistrationPayload, TResetPasswordArgs } from "@/api/Auth/types";
 import { messages } from "@/common/messages";
-import { socketConnection } from "@/common/socket";
+// import { socketConnection } from "@/common/socket";
 import notify from "@/utils/notify";
 
 import { useUserStore } from "./userStore";
@@ -19,7 +19,6 @@ export const useAuthStore = defineStore("authStore", () => {
       .then((resp) => {
         localStorage.setItem("token", resp.token);
         token.value = resp.token;
-        console.log(resp.user);
         userStore.setUser(resp.user);
       })
       .catch((error) => {
@@ -55,7 +54,7 @@ export const useAuthStore = defineStore("authStore", () => {
     return authApi.logout().finally(() => {
       localStorage.removeItem("token");
       userStore.unsetUser();
-      socketConnection.disconnect();
+      // socketConnection.disconnect();
       //использовал window.location так как router вызывал ошибку цикличность ссылок;
       window.location.href = "/login";
     });
