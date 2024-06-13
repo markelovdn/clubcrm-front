@@ -31,6 +31,7 @@ body {
 .q-btn {
   height: 56px;
   border-radius: 10px;
+  text-transform: none;
 }
 
 .q-field__control {
@@ -56,15 +57,16 @@ body {
 }
 
 h1 {
-  font-size: 48px;
+  font-size: 32px;
   font-weight: 700;
-  margin: 0;
+  margin: 0px;
+  line-height: 1;
 }
 
 h2 {
   font-size: 24px;
   font-weight: 500;
-  margin: 0;
+  margin: 0px;
 }
 
 ::-webkit-scrollbar {
