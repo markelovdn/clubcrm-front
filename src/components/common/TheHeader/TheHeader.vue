@@ -38,7 +38,6 @@ const iconColor = computed(() => {
 
 const userRoles = computed(() => {
   const roles = userStore.getUserInfo?.roles.map((role) => role.title);
-  console.log(roles);
   return roles ? roles.join(", ") : "";
 });
 </script>
