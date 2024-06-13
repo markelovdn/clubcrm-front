@@ -38,7 +38,6 @@ export class BaseApi {
         headers: { ...config.headers, ...getAuthHeader() },
       }),
       (error) => {
-        console.log(error);
         return Promise.reject(error);
       },
     );
@@ -52,12 +51,10 @@ export class BaseApi {
         const status = error.response?.status;
         const unauthorizedStatuses = [401, 403];
         if (unauthorizedStatuses.includes(status) && window.location.pathname !== "/login") {
-          console.log(error.response.data.message);
           //Использовал window.location так как router вызывал ошибку цикличность ссылок;
           localStorage.removeItem("token");
           window.location.href = "/login";
         }
-        console.log(error);
 
         return Promise.reject(error);
       },
@@ -71,11 +68,9 @@ export class BaseApi {
     baseStore.setLoading(true);
     return this.axiosInstance({ method, url, data })
       .then((response) => {
-        console.log({ ...response.data });
         return response.data;
       })
       .catch((error) => {
-        console.log({ ...error });
         this.$error.value = true;
         this.$message.value = error.message || "An error occurred";
         this.$code.value = error.response ? error.response.status : "500";

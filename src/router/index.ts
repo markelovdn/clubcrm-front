@@ -34,9 +34,13 @@ router.beforeEach(async (to, from, next) => {
       message: messages.authorizationRequired,
     });
     next({ name: "Login" });
-  } else if (to.meta.anyRole && userStore.hasRole("any")) {
+  }
+
+  if (to.meta.anyRole && !userStore.hasRole("any")) {
     next({ name: "Profile" });
-  } else if (to.meta.roles) {
+  }
+
+  if (to.meta.roles) {
     const hasRequiredRole = Array.isArray(to.meta.roles)
       ? to.meta.roles.some((role) => userStore.hasRole(role))
       : userStore.hasRole(to.meta.roles?.[0] as TUserRole["code"]);
@@ -47,7 +51,7 @@ router.beforeEach(async (to, from, next) => {
         type: "negative",
         message: "Доступ запрещен.",
       });
-      next({ name: "Main" });
+      next({ name: "Login" });
     }
   } else {
     next();

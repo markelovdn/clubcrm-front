@@ -23,6 +23,7 @@ const routes: Array<RouteRecordRaw & { meta: MyRouteMeta }> = [
     component: () => import("@/pages/UIPage.vue"),
     meta: {
       title: "UI",
+      roles: ["admin"],
     },
   },
 
