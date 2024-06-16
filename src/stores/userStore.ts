@@ -3,7 +3,7 @@ import { computed, ref } from "vue";
 import { parse, stringify } from "zipson";
 
 import { userApi } from "@/api";
-import { TUser, TUserRole } from "@/api/User/types";
+import { TUser, TUserPayload, TUserRole } from "@/api/User/types";
 import { messages } from "@/common/messages";
 import notify from "@/utils/notify";
 
@@ -23,7 +23,6 @@ export const useUserStore = defineStore(
     async function requestUserInfo() {
       const res = await userApi.getAuthUser();
       setUser(res);
-      console.log(res);
       return res;
     }
 
@@ -41,6 +40,37 @@ export const useUserStore = defineStore(
         });
     }
 
+    async function setProfile(data: TUserPayload) {
+      return userApi
+        .setProfile(data)
+        .then(() => {
+          requestUserInfo();
+          notify({ type: "positive", message: messages.successSaveData });
+        })
+        .catch((err) => {
+          console.log(err);
+          // Object.values(err.response.data.errors.response.original.message).forEach((error) => {
+          // notify({ type: "negative", message: String(error) });
+          // });
+          throw err;
+        });
+    }
+
+    async function updateProfile(data: TUserPayload) {
+      return userApi
+        .updateProfile(data)
+        .then(() => {
+          notify({ type: "positive", message: messages.successSaveData });
+        })
+        .catch((err) => {
+          console.log(err);
+          // Object.values(err.response.data.errors.response.original.message).forEach((error) => {
+          // notify({ type: "negative", message: String(error) });
+          // });
+          throw err;
+        });
+    }
+
     const getUserInfo = computed(() => {
       return user.value;
     });
@@ -48,7 +78,6 @@ export const useUserStore = defineStore(
 
     const hasRole = (role: TUserRole["code"] | "any"): boolean => {
       if (role === "any" && user.value?.roles) {
-        console.log(user.value?.roles.length > 0);
         return user.value?.roles.length > 0 ? true : false;
       }
       return user.value?.roles.some((userRole) => userRole.code === role) ?? false;
@@ -56,6 +85,8 @@ export const useUserStore = defineStore(
 
     return {
       createUser,
+      setProfile,
+      updateProfile,
       user,
       setUser,
       unsetUser,

@@ -35,7 +35,7 @@ watch(
         flat
         :label="menuItem.name"
         align="left"
-        class="menu-item full-width"
+        class="q-mb-sm menu-item full-width"
         :icon="menuItem.icon" />
     </div>
   </div>
@@ -44,5 +44,7 @@ watch(
 <style lang="scss" scoped>
 .menu-item {
   color: var(--text-color);
+  border-radius: var(--border-radius);
+  height: 40px;
 }
 </style>

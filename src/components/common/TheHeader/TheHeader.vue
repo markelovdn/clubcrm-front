@@ -35,11 +35,6 @@ const iconColor = computed(() => {
     return "grey";
   }
 });
-
-const userRoles = computed(() => {
-  const roles = userStore.getUserInfo?.roles.map((role) => role.title);
-  return roles ? roles.join(", ") : "";
-});
 </script>
 <template>
   <q-header v-if="showHeaderOnRoute !== false" reveal elevated>
@@ -50,8 +45,6 @@ const userRoles = computed(() => {
         </q-avatar>
         {{ route.meta.title }}
       </q-toolbar-title>
-      <span>{{ userStore.getUserInfo?.fullName }}</span>
-      <span>({{ userRoles }})</span>
       <q-btn flat round @click="auth()">
         <q-icon name="account_circle" :color="iconColor" />
       </q-btn>

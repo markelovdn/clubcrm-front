@@ -67,5 +67,8 @@ const handleModelValueUpdate = (newValue: boolean) => {
 
 .logout-button {
   margin-top: auto;
+  width: 100%;
+  border-radius: var(--border-radius);
+  height: 52px;
 }
 </style>
