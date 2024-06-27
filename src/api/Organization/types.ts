@@ -1,4 +1,4 @@
-import { TAddress } from "@/api/Address/types";
+import { TAddress } from "@/api/Location/types";
 
 export type TOrganization = {
   id: number;
