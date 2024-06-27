@@ -12,7 +12,7 @@
   --background-card: #e3effb;
   --mobile-max-width: 720px;
   --mobile-min-width: 320px;
-  --border-radius: 12px;
+  --border-radius: 8px;
 }
 a {
   text-decoration: none;
@@ -29,9 +29,8 @@ body {
 }
 
 .q-btn {
-  height: 56px;
-  border-radius: 10px;
-  text-transform: none;
+  border-radius: var(--border-radius);
+  height: 45px;
 }
 
 .q-field__control {
@@ -67,6 +66,16 @@ h2 {
   font-size: 24px;
   font-weight: 500;
   margin: 0px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.info-text {
+  font-size: 14px;
+  color: var(--dark);
 }
 
 ::-webkit-scrollbar {

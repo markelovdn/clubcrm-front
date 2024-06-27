@@ -13,13 +13,13 @@ import useAppInit from "./hooks/useAppInit";
 import router from "./router";
 
 const app = createApp(App);
-useAppInit();
 
 app.use(router);
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
 
 app.use(pinia);
+useAppInit().init();
 
 app.use(Quasar, {
   plugins: {

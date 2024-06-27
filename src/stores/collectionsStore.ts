@@ -9,7 +9,6 @@ export const useCollectionsStore = defineStore("collectionsStore", () => {
 
   async function requestRoles() {
     const res = await collectionsApi.getRoles();
-    console.log(res);
     setRoles(res);
   }
 

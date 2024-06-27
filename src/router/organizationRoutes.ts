@@ -6,7 +6,7 @@ const organizationRoutes: Array<RouteRecordRaw & { meta: MyRouteMeta }> = [
   {
     path: "/organizations",
     name: "Organizations",
-    component: () => import("@/pages/OrganizationPage/OrganizationPage.vue"),
+    component: () => import("@/pages/OrganizationsPage/OrganizationsPage.vue"),
     meta: {
       title: "Организации",
       requireAuth: true,
