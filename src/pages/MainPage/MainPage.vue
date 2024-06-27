@@ -2,13 +2,18 @@
 import { onMounted, ref } from "vue";
 
 import { TUser } from "@/api/User/types";
+import { useLocationStore } from "@/stores/locationStore";
 import { useUserStore } from "@/stores/userStore";
 
 const userStore = useUserStore();
+const locationStore = useLocationStore();
 const user = ref<TUser | undefined>(undefined);
 
 onMounted(async () => {
   await userStore.requestUserInfo();
+  await locationStore.requestCountries();
+  await locationStore.requestDistricts();
+  await locationStore.requestRegions();
   user.value = userStore.getUserInfo;
 });
 </script>
@@ -17,6 +22,16 @@ onMounted(async () => {
   <div class="main-container">
     <span v-if="!user?.id">Загрузка...</span>
     <div>{{ user }}</div>
+    <div v-for="country in locationStore.countries" :key="country.id">{{ country.title }}</div>
+    <div v-for="district in locationStore.districts" :key="district.id">
+      {{ district.title }} -
+      {{ district.country.title }}
+    </div>
+
+    <div v-for="region in locationStore.regions" :key="region.id">
+      {{ region.title }} - {{ region.district.code }} -
+      {{ region.country.title }}
+    </div>
   </div>
   <div>
     <RouterLink to="/ui">Страница UI элементов</RouterLink>
@@ -67,3 +82,4 @@ onMounted(async () => {
   }
 }
 </style>
+@/stores/locationStore

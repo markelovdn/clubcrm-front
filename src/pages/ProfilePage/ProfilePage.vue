@@ -67,14 +67,14 @@ onMounted(async () => {
       <q-tab-panels v-model="tab" animated class="accent text-color">
         <q-tab-panel name="myData">
           <ProfileCard
-            v-if="!isEditProfile"
+            v-if="!isEditProfile && userStore.hasRole('any')"
             :data="data"
             :has-role="userStore.hasRole('any')"
             :roles="userRoles"
             @edit-profile="isEditProfile = true" />
 
           <ProfileForm
-            v-if="isEditProfile"
+            v-if="isEditProfile || !userStore.hasRole('any')"
             :data="data"
             :is-edit="true"
             :has-role="userStore.hasRole('any')"

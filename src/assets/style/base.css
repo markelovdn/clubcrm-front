@@ -30,6 +30,7 @@ body {
 
 .q-btn {
   border-radius: var(--border-radius);
+  height: 45px;
 }
 
 .q-field__control {
