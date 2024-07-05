@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev:legion34": "vite --config vite.config.legion34.ts",
+    "dev:scdch34": "vite --config vite.config.scdch34.ts",
+    "dev": "npm run dev:legion34 & npm run dev:scdch34",
     "typecheck": "vue-tsc --noEmit",
     "build": "run-p type-check build-only",
     "preview": "vite preview",
