@@ -2,7 +2,7 @@ import type { TForgotPasswordArgs, TLoginArgs, TRegistrationPayload, TResetPassw
 import { BaseApi } from "@/api/BaseApi";
 export class AuthApiService extends BaseApi {
   registration(data: TRegistrationPayload) {
-    return this.post("/register", data);
+    return this.post("/users", data);
   }
   login({ phone, password }: TLoginArgs) {
     return this.post("/login", { phone, password });

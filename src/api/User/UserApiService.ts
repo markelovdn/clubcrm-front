@@ -4,7 +4,7 @@ import { TRegistrationPayload } from "../Auth/types";
 import { TUserPayload } from "./types";
 export class UserApiService extends BaseApi {
   getAuthUser() {
-    return this.get("/user");
+    return this.get("/users/1");
   }
 
   createUser(data: TRegistrationPayload) {
